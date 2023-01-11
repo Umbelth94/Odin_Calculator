@@ -28,8 +28,10 @@ function displayNumber(number){
 };
 
 equalsButton.addEventListener('click', () => {
-   result = operate(operatorPressed,firstNum,+secondNum);
+   result = operate(operatorPressed,+firstNum,+secondNum);
    console.log(result);
+   firstNum = result;
+   secondNum = ''; //Attempt to reset so that you can continue to operate on more numbers
    display.textContent = result;   
 });
 
@@ -40,6 +42,7 @@ function clearAll(){
     isFirst = true;
     result = 0;
 }
+
 clearButton.addEventListener('click', () => {
     clearAll();
 })
@@ -50,10 +53,8 @@ plusButton.addEventListener('click', () => { //does not add yet!
     display.textContent = '';
     isFirst = false;
     operatorPressed = 'add';
-    
 });
 function add(a,b){
-    console.log('add ' + a + '+' + b + '=' + a+b);
     return a + b;
 }
 
