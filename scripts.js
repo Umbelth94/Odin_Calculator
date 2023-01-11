@@ -33,8 +33,15 @@ equalsButton.addEventListener('click', () => {
    display.textContent = result;   
 });
 
-clearButton.addEventListener('click', () => {
+function clearAll(){
     display.textContent = '';
+    firstNum = '';
+    secondNum ='';
+    isFirst = true;
+    result = 0;
+}
+clearButton.addEventListener('click', () => {
+    clearAll();
 })
 
 // + button
@@ -65,7 +72,7 @@ function divide(a,b){
     return a / b;
 }
 
-function operate(operator, a, b){
+function operate(operator, a, b){ 
     if (operator == 'add'){
         return add(a,b);
     } else if (operator == 'subtract')
