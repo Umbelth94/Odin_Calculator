@@ -1,6 +1,7 @@
 const display = document.querySelector('#display');
 const numButtons = document.querySelectorAll('.numbutt');
 const clearButton = document.querySelector('#clear');
+const minusButton = document.querySelector('#subtract');
 const plusButton = document.querySelector('#add');
 const equalsButton = document.querySelector('#equals');
 
@@ -27,6 +28,7 @@ function displayNumber(number){
     display.textContent = number;
 };
 
+// = button
 equalsButton.addEventListener('click', () => {
    result = operate(operatorPressed,+firstNum,+secondNum);
    console.log(result);
@@ -34,6 +36,23 @@ equalsButton.addEventListener('click', () => {
    secondNum = ''; //Attempt to reset so that you can continue to operate on more numbers
    display.textContent = result;   
 });
+
+// + button
+plusButton.addEventListener('click', () => {
+    firstNum = +firstNum; //converts number
+    display.textContent = '';
+    isFirst = false;
+    operatorPressed = 'add';
+});
+
+// - button
+minusButton.addEventListener('click',() => {
+    firstNum = +firstNum;
+    display.textContent ='';
+    isFirst = false;
+    operatorPressed = 'subtract'
+})
+
 
 function clearAll(){
     display.textContent = '';
@@ -47,19 +66,11 @@ clearButton.addEventListener('click', () => {
     clearAll();
 })
 
-// + button
-plusButton.addEventListener('click', () => { //does not add yet!  
-    firstNum = +firstNum; //converts number
-    display.textContent = '';
-    isFirst = false;
-    operatorPressed = 'add';
-});
 function add(a,b){
     return a + b;
 }
 
 function subtract(a,b){
-    console.log('subtract ' + a + '-' + b + '=' + a-b);
     return a - b;
 }
 
