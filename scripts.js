@@ -1,8 +1,7 @@
 const display = document.querySelector('#display');
 const numButtons = document.querySelectorAll('.numbutt');
 const clearButton = document.querySelector('#clear');
-const minusButton = document.querySelector('#subtract');
-const plusButton = document.querySelector('#add');
+const operandButtons = document.querySelectorAll('.operand');
 const equalsButton = document.querySelector('#equals');
 
 let operatorPressed = '';
@@ -11,6 +10,7 @@ let secondNum='';
 let isFirst = true;
 let result = 0;
 
+//combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
             display.textContent += button.textContent;
@@ -24,9 +24,29 @@ numButtons.forEach(button => {
     })
 });
 
+//Combine all of the operating buttons except for = into one eventlistener 
+operandButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        firstNum = +firstNum; //converts to number
+        display.textContent = ''; //blanks out display
+        isFirst = false;
+        console.log(button.id);
+        if (button.id == 'add'){
+            operatorPressed = 'add';
+        } else if (button.id =='subtract'){
+            operatorPressed = 'subtract';
+        } else if (button.id == 'multiply'){
+            operatorPressed = 'multiply';
+        } else if (button.id == 'divide'){
+            operatorPressed = 'divide';
+        }
+})});
+
 function displayNumber(number){
     display.textContent = number;
 };
+
+
 
 // = button
 equalsButton.addEventListener('click', () => {
@@ -37,21 +57,7 @@ equalsButton.addEventListener('click', () => {
    display.textContent = result;   
 });
 
-// + button
-plusButton.addEventListener('click', () => {
-    firstNum = +firstNum; //converts number
-    display.textContent = '';
-    isFirst = false;
-    operatorPressed = 'add';
-});
 
-// - button
-minusButton.addEventListener('click',() => {
-    firstNum = +firstNum;
-    display.textContent ='';
-    isFirst = false;
-    operatorPressed = 'subtract'
-})
 
 
 function clearAll(){
@@ -86,13 +92,17 @@ function divide(a,b){
 
 function operate(operator, a, b){ 
     if (operator == 'add'){
+        console.log('add');
         return add(a,b);
     } else if (operator == 'subtract')
     {
+        console.log('subtract' + a + b);
         return subtract(a,b);
     } else if (operator =='multiply'){
-        return multiply(a,b)
+        console.log('multiply' + a + b);
+        return multiply(a,b);
     } else if (operator =='divide'){
+        console.log('divide' + a + b);
         return divide(a,b);
     }
 };
