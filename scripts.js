@@ -29,7 +29,7 @@ operandButtons.forEach(button => {
     button.addEventListener('click', () => {
         firstNum = +firstNum; //converts to number
         display.textContent = ''; //blanks out display
-        isFirst = false;
+        isFirst = false; //Sets the next number input to be the second number
         console.log(button.id);
         if (button.id == 'add'){
             operatorPressed = 'add';
@@ -52,14 +52,12 @@ function displayNumber(number){
 equalsButton.addEventListener('click', () => {
    result = operate(operatorPressed,+firstNum,+secondNum);
    console.log(result);
-   firstNum = result;
-   secondNum = ''; //Attempt to reset so that you can continue to operate on more numbers
+   firstNum = result; //Set the result to the first number so that the next input is always the second number variable
+   secondNum = ''; //"reset" second number variable.  
    display.textContent = result;   
 });
 
-
-
-
+//Clear all function
 function clearAll(){
     display.textContent = '';
     firstNum = '';
@@ -94,8 +92,7 @@ function operate(operator, a, b){
     if (operator == 'add'){
         console.log('add');
         return add(a,b);
-    } else if (operator == 'subtract')
-    {
+    } else if (operator == 'subtract'){
         console.log('subtract' + a + b);
         return subtract(a,b);
     } else if (operator =='multiply'){

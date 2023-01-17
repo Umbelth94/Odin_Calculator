@@ -1,0 +1,36 @@
+*{
+    box-sizing:border-box;
+}
+
+/* #calculator-frame{
+    width:400px;
+    display:flex;
+    flex-direction:column;
+    margin-left:auto;
+    margin-right:auto;
+    border:solid 2px black;
+}
+
+#display{
+    border:dotted 1px black;
+    margin-left:auto;
+    margin-right:auto;
+    height:100px;
+    width: 200px;
+}
+
+#allbuttons{
+    display:flex;
+}
+
+#numbers{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-around;
+}
+
+.numbutt{
+    height:35px;
+    width:35px;
+    margin:10px;
+} */
