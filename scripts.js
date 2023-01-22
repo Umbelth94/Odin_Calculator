@@ -4,6 +4,7 @@ const clearButton = document.querySelector('#clear');
 const operandButtons = document.querySelectorAll('.operand');
 const equalsButton = document.querySelector('#equals');
 
+let operandOn = false;
 let operatorPressed = '';
 let firstNum =''; //Attempt to make firstNum a string that can be turned into a number later.
 let secondNum='';
@@ -13,14 +14,19 @@ let result = 0;
 //combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
+        if(!operandOn){
             display.textContent += button.textContent;
             if(isFirst){
-                firstNum += button.textContent;
-                console.log('first number ' + firstNum);
-            } else {
-                secondNum += button.textContent;
-                console.log('second number ' + secondNum);
-            }
+                    firstNum += button.textContent;
+                    console.log('first number ' + firstNum);
+                } else {
+                    secondNum += button.textContent;
+                    console.log('second number ' + secondNum);
+                }
+        } else if(operandOn)
+        display.textContent = '';
+        operandOn = false;
+        // display.textContent += button.textContent;
     })
 });
 
@@ -51,6 +57,7 @@ operandButtons.forEach(button => {
                 firstNum = operate(operatorPressed, +firstNum, +secondNum);
                 secondNum = '';
                 display.textContent = firstNum;
+                operandOn = true;
             } else if (button.id =='subtract'){
                 operatorPressed = 'subtract';
             } else if (button.id == 'multiply'){
