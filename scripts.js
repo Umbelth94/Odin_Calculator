@@ -1,3 +1,10 @@
+//TO DO LIST
+    //ADD FUNCTIONAL DELETE BUTTON THAT ONLY DELETES ONE DIGIT AT A TIME
+    //ADD A DISPLAY TO SHOW EQUATION (OPERAND LOGIC MAY MAKE THIS TRICKY)
+    //ADD HOVER/CLIK FUNCTIONALITY TO BUTTONS
+    //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
+    //Add functionality to just re-do the same operation if equal button is hit without a second number
+
 const display = document.querySelector('#display');
 const numButtons = document.querySelectorAll('.numbutt');
 const clearButton = document.querySelector('#clear');
@@ -8,6 +15,7 @@ let operandOn = false;
 let operatorPressed = '';
 let firstNum =''; //Attempt to make firstNum a string that can be turned into a number later.
 let secondNum='';
+let storedSecondNum = '';
 let isFirst = true;
 let result = 0;
 
@@ -22,15 +30,13 @@ numButtons.forEach(button => {
             operandOn = false;
             display.textContent += button.textContent;
             }
-            if(isFirst){
-                    firstNum += button.textContent;
-                    console.log('first number ' + firstNum);
-                } else {
-                    secondNum += button.textContent;
-                    console.log('second number ' + secondNum);
-                }
-    })
-});
+        if(isFirst){
+                firstNum += button.textContent;
+                console.log('first number ' + firstNum);
+            } else {
+                secondNum += button.textContent;
+                console.log('second number ' + secondNum);
+            }})});
 
 //Combine all of the operating buttons except for = into one eventlistener 
 operandButtons.forEach(button => {
@@ -50,25 +56,27 @@ operandButtons.forEach(button => {
                 operatorPressed = 'divide';
             }
         }
-        //Order of operations:
-            //
         else if (!isFirst){ //If the second number has been entered
             console.log(button.id);
             if (button.id == 'add'){
-                operatorPressed = 'add';
-                firstNum = operate(operatorPressed, +firstNum, +secondNum);
-                secondNum = '';
-                display.textContent = firstNum;
-                operandOn = true;
+                solveWithOperator('add');
             } else if (button.id =='subtract'){
-                operatorPressed = 'subtract';
+                solveWithOperator('subtract');
             } else if (button.id == 'multiply'){
-                operatorPressed = 'multiply';
+                solveWithOperator('multiply');
             } else if (button.id == 'divide'){
-                operatorPressed = 'divide';
+                solveWithOperator('divide');
             }
         }
 })});
+
+function solveWithOperator(op){
+    firstNum = operate(operatorPressed, +firstNum, +secondNum); //calculates using the PREVIOUSLY PRESSED operator
+    operatorPressed = op; //updates the next operator to be used
+    secondNum ='';
+    display.textContent = firstNum;
+    operandOn = true;
+}
 
 function displayNumber(number){
     display.textContent = number;
@@ -78,12 +86,19 @@ function displayNumber(number){
 
 // = button
 equalsButton.addEventListener('click', () => {
-   result = operate(operatorPressed,+firstNum,+secondNum);
-   console.log(result);
-   firstNum = result; //Set the result to the first number so that the next input is always the second number variable
-   secondNum = ''; //"reset" second number variable.  
-   display.textContent = result;   
-   isFirst = true;
+    if(secondNum != ''){
+        result = operate(operatorPressed,+firstNum,+secondNum);
+        console.log(result);
+        firstNum = result; //Set the result to the first number so that the next input is always the second number variable
+        storedSecondNum = +secondNum;
+        secondNum = ''; //"reset" second number variable.  
+        display.textContent = result;   
+        isFirst = true;
+    } else if(secondNum == ''){
+        result = operate(operatorPressed,+firstNum,storedSecondNum);
+        firstNum = result;
+        display.textContent = result;
+    }
 });
 
 //Clear all function
