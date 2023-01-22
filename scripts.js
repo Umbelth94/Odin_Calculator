@@ -27,18 +27,37 @@ numButtons.forEach(button => {
 //Combine all of the operating buttons except for = into one eventlistener 
 operandButtons.forEach(button => {
     button.addEventListener('click', () => {
-        firstNum = +firstNum; //converts to number
-        display.textContent = ''; //blanks out display
-        isFirst = false; //Sets the next number input to be the second number
-        console.log(button.id);
-        if (button.id == 'add'){
-            operatorPressed = 'add';
-        } else if (button.id =='subtract'){
-            operatorPressed = 'subtract';
-        } else if (button.id == 'multiply'){
-            operatorPressed = 'multiply';
-        } else if (button.id == 'divide'){
-            operatorPressed = 'divide';
+        if (isFirst){
+            firstNum = +firstNum; //converts first numberstring to number
+            display.textContent = ''; //blanks out display
+            isFirst = false; //Sets the next number input to be the second number
+            console.log(button.id);
+            if (button.id == 'add'){
+                operatorPressed = 'add';
+            } else if (button.id =='subtract'){
+                operatorPressed = 'subtract';
+            } else if (button.id == 'multiply'){
+                operatorPressed = 'multiply';
+            } else if (button.id == 'divide'){
+                operatorPressed = 'divide';
+            }
+        }
+        //Order of operations:
+            //
+        else if (!isFirst){ //If the second number has been entered
+            console.log(button.id);
+            if (button.id == 'add'){
+                operatorPressed = 'add';
+                firstNum = operate(operatorPressed, +firstNum, +secondNum);
+                secondNum = '';
+                display.textContent = firstNum;
+            } else if (button.id =='subtract'){
+                operatorPressed = 'subtract';
+            } else if (button.id == 'multiply'){
+                operatorPressed = 'multiply';
+            } else if (button.id == 'divide'){
+                operatorPressed = 'divide';
+            }
         }
 })});
 
@@ -55,6 +74,7 @@ equalsButton.addEventListener('click', () => {
    firstNum = result; //Set the result to the first number so that the next input is always the second number variable
    secondNum = ''; //"reset" second number variable.  
    display.textContent = result;   
+   isFirst = true;
 });
 
 //Clear all function
@@ -90,7 +110,7 @@ function divide(a,b){
 
 function operate(operator, a, b){ 
     if (operator == 'add'){
-        console.log('add');
+        console.log('add' + a + '+' + b);
         return add(a,b);
     } else if (operator == 'subtract'){
         console.log('subtract' + a + b);
