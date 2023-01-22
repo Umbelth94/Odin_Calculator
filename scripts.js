@@ -16,6 +16,12 @@ numButtons.forEach(button => {
     button.addEventListener('click',() => {
         if(!operandOn){
             display.textContent += button.textContent;
+        }
+        else if(operandOn){
+            display.textContent = '';
+            operandOn = false;
+            display.textContent += button.textContent;
+            }
             if(isFirst){
                     firstNum += button.textContent;
                     console.log('first number ' + firstNum);
@@ -23,10 +29,6 @@ numButtons.forEach(button => {
                     secondNum += button.textContent;
                     console.log('second number ' + secondNum);
                 }
-        } else if(operandOn)
-        display.textContent = '';
-        operandOn = false;
-        // display.textContent += button.textContent;
     })
 });
 
