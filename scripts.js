@@ -3,7 +3,6 @@
     //ADD A DISPLAY TO SHOW EQUATION (OPERAND LOGIC MAY MAKE THIS TRICKY)
     //ADD HOVER/CLIK FUNCTIONALITY TO BUTTONS
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
-    //Add functionality to just re-do the same operation if equal button is hit without a second number
 
 const display = document.querySelector('#display');
 const numButtons = document.querySelectorAll('.numbutt');
@@ -108,6 +107,8 @@ function clearAll(){
     secondNum ='';
     isFirst = true;
     result = 0;
+    operandOn = false;
+    storedSecondNum = '';
 }
 
 clearButton.addEventListener('click', () => {
