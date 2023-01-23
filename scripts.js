@@ -99,7 +99,7 @@ equalsButton.addEventListener('click', () => {
         display.textContent = result;   
         isFirst = true;
     } else if(secondNum == ''){
-        equationDisplay.textContent = firstNum + lastOperandSymbol + storedSecondNum + '= '; //WORK ON THIS LOGIC NEXT
+        equationDisplay.textContent = firstNum + lastOperandSymbol + storedSecondNum + '= '; 
         result = operate(operatorPressed,+firstNum,storedSecondNum);
         firstNum = result;
         display.textContent = result;
