@@ -9,7 +9,9 @@ const numButtons = document.querySelectorAll('.numbutt');
 const clearButton = document.querySelector('#clear');
 const operandButtons = document.querySelectorAll('.operand');
 const equalsButton = document.querySelector('#equals');
+const equationDisplay = document.querySelector('#equationdisplay');
 
+equationDisplay.textContent = '';
 let operandOn = false;
 let operatorPressed = '';
 let firstNum =''; //Attempt to make firstNum a string that can be turned into a number later.
@@ -45,6 +47,7 @@ operandButtons.forEach(button => {
             display.textContent = ''; //blanks out display
             isFirst = false; //Sets the next number input to be the second number
             console.log(button.id);
+            equationDisplay.textContent = firstNum + button.textContent;
             if (button.id == 'add'){
                 operatorPressed = 'add';
             } else if (button.id =='subtract'){
@@ -90,6 +93,7 @@ equalsButton.addEventListener('click', () => {
         console.log(result);
         firstNum = result; //Set the result to the first number so that the next input is always the second number variable
         storedSecondNum = +secondNum;
+        equationDisplay.textContent += secondNum + '= ';
         secondNum = ''; //"reset" second number variable.  
         display.textContent = result;   
         isFirst = true;
@@ -102,6 +106,7 @@ equalsButton.addEventListener('click', () => {
 
 //Clear all function
 function clearAll(){
+    equationDisplay.textContent = '';
     display.textContent = '';
     firstNum = '';
     secondNum ='';
