@@ -1,6 +1,7 @@
 //TO DO LIST
     //ADD FUNCTIONAL DELETE BUTTON THAT ONLY DELETES ONE DIGIT AT A TIME
-    //ADD A DISPLAY TO SHOW EQUATION (OPERAND LOGIC MAY MAKE THIS TRICKY)
+    //ADD A DISPLAY TO SHOW EQUATION (priority)
+        //This works well for the operands but not with pressing equals over and over.  Take a look at that section next.
     //ADD HOVER/CLIK FUNCTIONALITY TO BUTTONS
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
 
@@ -98,6 +99,7 @@ equalsButton.addEventListener('click', () => {
         display.textContent = result;   
         isFirst = true;
     } else if(secondNum == ''){
+        equationDisplay.textContent += storedSecondNum + operandButtons.textContent + '= '; //WORK ON THIS LOGIC NEXT
         result = operate(operatorPressed,+firstNum,storedSecondNum);
         firstNum = result;
         display.textContent = result;
