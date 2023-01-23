@@ -1,6 +1,4 @@
 //TO DO LIST
-    //FIX THE DISPLAY WHEN USING MULTIPLE OPERANDS (PRIORITY)
-        //The equations display does not change the operand.  
     //ADD FUNCTIONAL DELETE BUTTON THAT ONLY DELETES ONE DIGIT AT A TIME
     //ADD HOVER/CLIK FUNCTIONALITY TO BUTTONS
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
@@ -22,10 +20,15 @@ let secondNum='';
 let storedSecondNum = '';
 let isFirst = true;
 let result = 0;
+let postDisplay = false; //Checks if the number on the display is the result of an equation.
 
 //combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
+        if(postDisplay){
+            clearAll();
+            postDisplay = false;
+        }
         if(!operandOn){
             display.textContent += button.textContent;
         }
@@ -104,11 +107,13 @@ equalsButton.addEventListener('click', () => {
         secondNum = ''; //"reset" second number variable.  
         display.textContent = result;   
         isFirst = true;
+        postDisplay = true;
     } else if(secondNum == ''){
         equationDisplay.textContent = firstNum + lastOperandSymbol + storedSecondNum + '= '; 
         result = operate(operatorPressed,+firstNum,storedSecondNum);//Calls the stored second number
         firstNum = result;
         display.textContent = result;
+        postDisplay = true;
     }
 });
 
