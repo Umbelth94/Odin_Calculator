@@ -1,4 +1,5 @@
 //TO DO LIST
+    //Give negative/postive functionality to button
     //ADD FUNCTIONAL DELETE BUTTON THAT ONLY DELETES ONE DIGIT AT A TIME
     //ADD HOVER/CLIK FUNCTIONALITY TO BUTTONS
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
@@ -10,6 +11,7 @@ const clearButton = document.querySelector('#clear');
 const operandButtons = document.querySelectorAll('.operand');
 const equalsButton = document.querySelector('#equals');
 const equationDisplay = document.querySelector('#equationdisplay');
+const posnegButton = document.querySelector('#posneg');
 
 equationDisplay.textContent = '';
 let lastOperandSymbol = '';
@@ -21,6 +23,7 @@ let storedSecondNum = '';
 let isFirst = true;
 let result = 0;
 let postDisplay = false; //Checks if the number on the display is the result of an equation.
+let isPositive = true;
 
 //combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
