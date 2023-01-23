@@ -1,4 +1,6 @@
 //TO DO LIST
+    //FIX THE DISPLAY WHEN USING MULTIPLE OPERANDS (PRIORITY)
+        //The equations display does not change the operand.  
     //ADD FUNCTIONAL DELETE BUTTON THAT ONLY DELETES ONE DIGIT AT A TIME
     //ADD HOVER/CLIK FUNCTIONALITY TO BUTTONS
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
@@ -13,7 +15,7 @@ const equationDisplay = document.querySelector('#equationdisplay');
 
 equationDisplay.textContent = '';
 let lastOperandSymbol = '';
-let operandOn = false;
+let operandOn = false; //A toggle to make sure there is a second input after hitting an operand
 let operatorPressed = '';
 let firstNum =''; //Attempt to make firstNum a string that can be turned into a number later.
 let secondNum='';
@@ -43,12 +45,12 @@ numButtons.forEach(button => {
 //Combine all of the operating buttons except for = into one eventlistener 
 operandButtons.forEach(button => {
     button.addEventListener('click', () => {
-        if (isFirst){ //If only the first number has been entered
+        if (isFirst){ //If the first number has not been entered
             firstNum = +firstNum; //converts first numberstring to number
             display.textContent = ''; //blanks out display
-            isFirst = false; //Sets the next number input to be the second number
+            isFirst = false; //Sets the next number input to the second number
             console.log(button.id);
-            lastOperandSymbol = button.textContent;
+            lastOperandSymbol = button.textContent;//stores the most recent operand symbol for use in the display
             equationDisplay.textContent = firstNum + lastOperandSymbol;
             if (button.id == 'add'){
                 operatorPressed = 'add';
@@ -73,11 +75,14 @@ operandButtons.forEach(button => {
         }
 })});
 
+//function that solves the equation upon pressing another operand instead of the equals button.
 function solveWithOperator(op){
     firstNum = operate(operatorPressed, +firstNum, +secondNum); //calculates using the PREVIOUSLY PRESSED operator
+    // lastOperandSymbol = this.textContent;
     operatorPressed = op; //updates the next operator to be used
     secondNum ='';
-    display.textContent = firstNum;
+    display.textContent = '';
+    equationDisplay.textContent = firstNum + lastOperandSymbol;
     operandOn = true;
 }
 
@@ -92,15 +97,15 @@ equalsButton.addEventListener('click', () => {
     if(secondNum != ''){
         result = operate(operatorPressed,+firstNum,+secondNum);
         console.log(result);
-        firstNum = result; //Set the result to the first number so that the next input is always the second number variable
-        storedSecondNum = +secondNum;
+        firstNum = result; //Set the result to the first number so that the next input is always the secondNum variable
+        storedSecondNum = +secondNum; //Stores a number to be used as the second value, should one not be entered
         equationDisplay.textContent += secondNum + '= ';
         secondNum = ''; //"reset" second number variable.  
         display.textContent = result;   
         isFirst = true;
     } else if(secondNum == ''){
         equationDisplay.textContent = firstNum + lastOperandSymbol + storedSecondNum + '= '; 
-        result = operate(operatorPressed,+firstNum,storedSecondNum);
+        result = operate(operatorPressed,+firstNum,storedSecondNum);//Calls the stored second number
         firstNum = result;
         display.textContent = result;
     }
