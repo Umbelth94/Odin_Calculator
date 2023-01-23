@@ -147,6 +147,11 @@ function multiply(a,b){
 }
 
 function divide(a,b){
+    if (b == '0' || b == 0){
+        console.log('nice try');
+        postDisplay = true;
+        return 'Nice try, wise guy';
+    }
     console.log ('divide ' + a + '/' + b + '=' + a/b);
     return a / b;
 }
