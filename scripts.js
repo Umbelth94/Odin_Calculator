@@ -1,9 +1,8 @@
 //TO DO LIST
     //ADD FUNCTIONAL DELETE BUTTON THAT ONLY DELETES ONE DIGIT AT A TIME
-    //ADD A DISPLAY TO SHOW EQUATION (priority)
-        //This works well for the operands but not with pressing equals over and over.  Take a look at that section next.
     //ADD HOVER/CLIK FUNCTIONALITY TO BUTTONS
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
+    //Styling
 
 const display = document.querySelector('#display');
 const numButtons = document.querySelectorAll('.numbutt');
@@ -13,6 +12,7 @@ const equalsButton = document.querySelector('#equals');
 const equationDisplay = document.querySelector('#equationdisplay');
 
 equationDisplay.textContent = '';
+let lastOperandSymbol = '';
 let operandOn = false;
 let operatorPressed = '';
 let firstNum =''; //Attempt to make firstNum a string that can be turned into a number later.
@@ -43,12 +43,13 @@ numButtons.forEach(button => {
 //Combine all of the operating buttons except for = into one eventlistener 
 operandButtons.forEach(button => {
     button.addEventListener('click', () => {
-        if (isFirst){
+        if (isFirst){ //If only the first number has been entered
             firstNum = +firstNum; //converts first numberstring to number
             display.textContent = ''; //blanks out display
             isFirst = false; //Sets the next number input to be the second number
             console.log(button.id);
-            equationDisplay.textContent = firstNum + button.textContent;
+            lastOperandSymbol = button.textContent;
+            equationDisplay.textContent = firstNum + lastOperandSymbol;
             if (button.id == 'add'){
                 operatorPressed = 'add';
             } else if (button.id =='subtract'){
@@ -58,8 +59,7 @@ operandButtons.forEach(button => {
             } else if (button.id == 'divide'){
                 operatorPressed = 'divide';
             }
-        }
-        else if (!isFirst){ //If the second number has been entered
+        } else if (!isFirst){ //If the second number has been entered
             console.log(button.id);
             if (button.id == 'add'){
                 solveWithOperator('add');
@@ -99,7 +99,7 @@ equalsButton.addEventListener('click', () => {
         display.textContent = result;   
         isFirst = true;
     } else if(secondNum == ''){
-        equationDisplay.textContent += storedSecondNum + operandButtons.textContent + '= '; //WORK ON THIS LOGIC NEXT
+        equationDisplay.textContent = firstNum + lastOperandSymbol + storedSecondNum + '= '; //WORK ON THIS LOGIC NEXT
         result = operate(operatorPressed,+firstNum,storedSecondNum);
         firstNum = result;
         display.textContent = result;
