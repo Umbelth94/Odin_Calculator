@@ -63,6 +63,7 @@ operandButtons.forEach(button => {
             }
         } else if (!isFirst){ //If the second number has been entered
             console.log(button.id);
+            lastOperandSymbol = button.textContent;
             if (button.id == 'add'){
                 solveWithOperator('add');
             } else if (button.id =='subtract'){
