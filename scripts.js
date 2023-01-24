@@ -28,7 +28,7 @@ let isPositive = true;
 //combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
-        if(postDisplay){
+        if(postDisplay && operandOn){
             clearAll();
             postDisplay = false;
         }
@@ -55,6 +55,7 @@ operandButtons.forEach(button => {
             firstNum = +firstNum; //converts first numberstring to number
             display.textContent = ''; //blanks out display
             isFirst = false; //Sets the next number input to the second number
+            isPositive = true;
             console.log(button.id);
             lastOperandSymbol = button.textContent;//stores the most recent operand symbol for use in the display
             equationDisplay.textContent = firstNum + lastOperandSymbol;
@@ -91,11 +92,44 @@ function solveWithOperator(op){
     display.textContent = '';
     equationDisplay.textContent = firstNum + lastOperandSymbol;
     operandOn = true;
+    isPositive = true;
 }
 
 function displayNumber(number){
     display.textContent = number;
 };
+
+// +/- button
+posnegButton.addEventListener('click',()=> {
+    //May need a function to check if the strings have an '-' already
+    if ((isFirst && firstNum != '') || (!isFirst && secondNum != '')) //Checks if a number is entered (either first OR second)
+    { if (isPositive){
+        if(isFirst){
+            firstNum = '-' + firstNum;
+            display.textContent = firstNum;
+            isPositive = false;
+            //append a '-' in front of the display that is first number
+        } else {
+            secondNum = '-' + secondNum;
+            display.textContent = secondNum;
+            isPositive = false;
+            //append a '-' in front of the display that is the second number
+        }
+    } else {
+        if(isFirst){
+            firstNum = firstNum.slice(1);
+            display.textContent = firstNum;
+            isPositive = true;
+        } else {
+            secondNum = secondNum.slice(1);
+            display.textContent = secondNum;
+            isPositive = true;
+        }
+
+    }
+        
+    }
+})
 
 
 
@@ -111,12 +145,14 @@ equalsButton.addEventListener('click', () => {
         display.textContent = result;   
         isFirst = true;
         postDisplay = true;
+        isPositive = true;
     } else if(secondNum == ''){
         equationDisplay.textContent = firstNum + lastOperandSymbol + storedSecondNum + '= '; 
         result = operate(operatorPressed,+firstNum,storedSecondNum);//Calls the stored second number
         firstNum = result;
         display.textContent = result;
         postDisplay = true;
+        isPositive = true;
     }
 });
 
