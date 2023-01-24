@@ -17,13 +17,13 @@ equationDisplay.textContent = '';
 let lastOperandSymbol = '';
 let operandOn = false; //A toggle to make sure there is a second input after hitting an operand
 let operatorPressed = '';
-let firstNum =''; //Attempt to make firstNum a string that can be turned into a number later.
+let firstNum =''; 
 let secondNum='';
 let storedSecondNum = '';
-let isFirst = true;
+let isFirst = true; 
 let result = 0;
 let postDisplay = false; //Checks if the number on the display is the result of an equation.
-let isPositive = true;
+let isPositive = true; //A check that is mostly used for the positive/negative button
 
 //combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
