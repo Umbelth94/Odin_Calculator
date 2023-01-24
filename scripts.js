@@ -1,8 +1,8 @@
 //TO DO LIST
-    //ADD FUNCTIONAL DELETE BUTTON THAT ONLY DELETES ONE DIGIT AT A TIME
     //ADD HOVER/CLIK FUNCTIONALITY TO BUTTONS
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
     //Styling
+    //Keyboard input (priority)
 
 const display = document.querySelector('#display');
 const numButtons = document.querySelectorAll('.numbutt');
@@ -11,6 +11,7 @@ const operandButtons = document.querySelectorAll('.operand');
 const equalsButton = document.querySelector('#equals');
 const equationDisplay = document.querySelector('#equationdisplay');
 const posnegButton = document.querySelector('#posneg');
+const deleteButton = document.querySelector('#delete');
 
 equationDisplay.textContent = '';
 let lastOperandSymbol = '';
@@ -31,10 +32,6 @@ numButtons.forEach(button => {
             clearAll();
             postDisplay = false;
         }
-        // if(postDisplay && operandOn){
-        //     clearAll();
-        //     postDisplay = false;
-        // }
         if(!operandOn){
             display.textContent += button.textContent;
         }
@@ -155,6 +152,17 @@ equalsButton.addEventListener('click', () => {
     }
 });
 
+//Delete button
+deleteButton.addEventListener('click',() => {
+    if(isFirst){
+        firstNum = firstNum.slice(0,firstNum.length -1);
+        display.textContent = firstNum;
+    } else {
+        secondNum = secondNum.slice(0,secondNum.length -1);
+        display.textContent = secondNum;
+    }
+})
+
 //Clear all function
 function clearAll(){
     equationDisplay.textContent = '';
@@ -165,6 +173,7 @@ function clearAll(){
     result = 0;
     operandOn = false;
     storedSecondNum = '';
+    isPositive = true;
 }
 
 clearButton.addEventListener('click', () => {
@@ -180,7 +189,6 @@ function subtract(a,b){
 }
 
 function multiply(a,b){
-    console.log('multiply ' + a + 'x' + b + '=' + a*b);
     return a * b;
 }
 
