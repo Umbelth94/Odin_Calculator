@@ -28,10 +28,14 @@ let isPositive = true;
 //combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
-        if(postDisplay && operandOn){
+        if(postDisplay){
             clearAll();
             postDisplay = false;
         }
+        // if(postDisplay && operandOn){
+        //     clearAll();
+        //     postDisplay = false;
+        // }
         if(!operandOn){
             display.textContent += button.textContent;
         }
@@ -51,6 +55,7 @@ numButtons.forEach(button => {
 //Combine all of the operating buttons except for = into one eventlistener 
 operandButtons.forEach(button => {
     button.addEventListener('click', () => {
+        postDisplay = false;
         if (isFirst){ //If the first number has not been entered
             firstNum = +firstNum; //converts first numberstring to number
             display.textContent = ''; //blanks out display
