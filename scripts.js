@@ -1,5 +1,4 @@
 //TO DO LIST
-    //Give negative/postive functionality to button
     //ADD FUNCTIONAL DELETE BUTTON THAT ONLY DELETES ONE DIGIT AT A TIME
     //ADD HOVER/CLIK FUNCTIONALITY TO BUTTONS
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
@@ -129,12 +128,7 @@ posnegButton.addEventListener('click',()=> {
             secondNum = secondNum.slice(1);
             display.textContent = secondNum;
             isPositive = true;
-        }
-
-    }
-        
-    }
-})
+        }}}});
 
 
 
