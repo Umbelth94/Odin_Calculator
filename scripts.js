@@ -25,6 +25,13 @@ let result = 0;
 let postDisplay = false; //Checks if the number on the display is the result of an equation.
 let isPositive = true; //A check that is mostly used for the positive/negative button
 
+//event listener for number buttons
+window.addEventListener('keydown',(event) =>{
+    let keyPressed = event.key;
+    console.log(keyPressed);
+    document.getElementById(keyPressed).click();
+    });
+
 //combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
@@ -46,7 +53,8 @@ numButtons.forEach(button => {
             } else {
                 secondNum += button.textContent;
                 console.log('second number ' + secondNum);
-            }})});
+            }
+        })});
 
 //Combine all of the operating buttons except for = into one eventlistener 
 operandButtons.forEach(button => {
