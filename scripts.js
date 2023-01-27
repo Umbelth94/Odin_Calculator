@@ -8,7 +8,7 @@ const display = document.querySelector('#display');
 const numButtons = document.querySelectorAll('.numbutt');
 const clearButton = document.querySelector('#clear');
 const operandButtons = document.querySelectorAll('.operand');
-const equalsButton = document.querySelector('#equals');
+const equalsButton = document.querySelector('#Enter');
 const equationDisplay = document.querySelector('#equationdisplay');
 const posnegButton = document.querySelector('#posneg');
 const deleteButton = document.querySelector('#delete');
@@ -29,8 +29,14 @@ let isPositive = true; //A check that is mostly used for the positive/negative b
 window.addEventListener('keydown',(event) =>{
     let keyPressed = event.key;
     console.log(keyPressed);
+    // if (keyPressed = 'enter'){
+    //     document.getElementById('')
+    // }
+    // if (keyPressed == '+'){
+    //     document.getElementById('+').click();
+    // }
     document.getElementById(keyPressed).click();
-    });
+   });
 
 //combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
@@ -68,25 +74,25 @@ operandButtons.forEach(button => {
             console.log(button.id);
             lastOperandSymbol = button.textContent;//stores the most recent operand symbol for use in the display
             equationDisplay.textContent = firstNum + lastOperandSymbol;
-            if (button.id == 'add'){
+            if (button.id == '+'){
                 operatorPressed = 'add';
-            } else if (button.id =='subtract'){
+            } else if (button.id =='-'){
                 operatorPressed = 'subtract';
-            } else if (button.id == 'multiply'){
+            } else if (button.id == '*'){
                 operatorPressed = 'multiply';
-            } else if (button.id == 'divide'){
+            } else if (button.id == '/'){
                 operatorPressed = 'divide';
             }
         } else if (!isFirst){ //If the second number has been entered
             console.log(button.id);
             lastOperandSymbol = button.textContent;
-            if (button.id == 'add'){
+            if (button.id == '+'){
                 solveWithOperator('add');
-            } else if (button.id =='subtract'){
+            } else if (button.id =='-'){
                 solveWithOperator('subtract');
-            } else if (button.id == 'multiply'){
+            } else if (button.id == '*'){
                 solveWithOperator('multiply');
-            } else if (button.id == 'divide'){
+            } else if (button.id == '/'){
                 solveWithOperator('divide');
             }
         }
