@@ -10,7 +10,7 @@ const clearButton = document.querySelector('#Clear');
 const operandButtons = document.querySelectorAll('.operand');
 const equalsButton = document.querySelector('#Enter');
 const equationDisplay = document.querySelector('#equationdisplay');
-const posnegButton = document.querySelector('#posneg');
+const posnegButton = document.querySelector('#Control');
 const deleteButton = document.querySelector('#Backspace');
 
 equationDisplay.textContent = '';
