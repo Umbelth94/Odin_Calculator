@@ -1,9 +1,9 @@
 //TO DO LIST
-    //ADD HOVER/CLIK FUNCTIONALITY TO BUTTONS
+    //ADD HOVER/CLICK FUNCTIONALITY TO BUTTONS
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
     //Styling
-    //Keyboard input (priority)
 
+//Some of these id's are named after the corresponding keyboard button that activates the buttons
 const display = document.querySelector('#display');
 const numButtons = document.querySelectorAll('.numbutt');
 const clearButton = document.querySelector('#Clear');
