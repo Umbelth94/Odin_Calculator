@@ -6,12 +6,12 @@
 
 const display = document.querySelector('#display');
 const numButtons = document.querySelectorAll('.numbutt');
-const clearButton = document.querySelector('#clear');
+const clearButton = document.querySelector('#Clear');
 const operandButtons = document.querySelectorAll('.operand');
 const equalsButton = document.querySelector('#Enter');
 const equationDisplay = document.querySelector('#equationdisplay');
 const posnegButton = document.querySelector('#posneg');
-const deleteButton = document.querySelector('#delete');
+const deleteButton = document.querySelector('#Backspace');
 
 equationDisplay.textContent = '';
 let lastOperandSymbol = '';
@@ -29,12 +29,6 @@ let isPositive = true; //A check that is mostly used for the positive/negative b
 window.addEventListener('keydown',(event) =>{
     let keyPressed = event.key;
     console.log(keyPressed);
-    // if (keyPressed = 'enter'){
-    //     document.getElementById('')
-    // }
-    // if (keyPressed == '+'){
-    //     document.getElementById('+').click();
-    // }
     document.getElementById(keyPressed).click();
    });
 

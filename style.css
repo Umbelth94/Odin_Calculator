@@ -21,7 +21,7 @@ button{
     width:70px;
 }
 
-#+{
+.add{
     grid-column:4;
     grid-row: 2/4;
 }
