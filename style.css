@@ -9,12 +9,23 @@
 }
 
 #displaycontainer{
-    background:green;
+    overflow-wrap:break-word;
+    background:rgb(224, 224, 224);
     border:solid 1px black;
     margin-left:auto;
     margin-right:auto;
-    height:50px;
-    width:200px;
+    margin-top:15px;
+    min-height:100px;
+    width:300px;
+}
+
+#equationdisplay{
+border:1px dotted green;
+height:30px;
+width:300px;
+}
+#display{
+    font-size:40px;
 }
 
 button{
