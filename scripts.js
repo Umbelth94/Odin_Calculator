@@ -1,9 +1,10 @@
 //TO DO LIST
-    //ADD HOVER/CLICK FUNCTIONALITY TO BUTTONS
+    //ADD HOVER/CLICK FUNCTIONALITY TO BUTTONS (priority)
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
     //Add button to turn off or change BMO's face.
-    //Have BMO's face fade when numbers are on the screen
-    //Styling
+    //Have BMO's face fade (or change) when numbers are on the screen
+//KNOWN BUGS
+    //BMO's face appears when entering a new number after an equation
 
 //Some of these id's are named after the corresponding keyboard button that activates the buttons
 const display = document.querySelector('#display');
