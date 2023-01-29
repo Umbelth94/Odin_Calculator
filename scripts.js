@@ -38,6 +38,7 @@ window.addEventListener('keydown',(event) =>{
 //combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
+        document.getElementById('displaycontainer').style.background = 'rgb(128,229,209)';
         if(postDisplay){
             clearAll();
             postDisplay = false;
@@ -176,6 +177,8 @@ deleteButton.addEventListener('click',() => {
 
 //Clear all function
 function clearAll(){
+    document.getElementById('displaycontainer').style.background = 'url(./bmo9.jpeg)'
+    document.getElementById('displaycontainer').style.backgroundSize = '300px';
     displayContainer.back
     equationDisplay.textContent = '';
     display.textContent = '';
