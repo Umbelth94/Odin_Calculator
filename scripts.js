@@ -1,6 +1,8 @@
 //TO DO LIST
     //ADD HOVER/CLICK FUNCTIONALITY TO BUTTONS
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
+    //Add button to turn off or change BMO's face.
+    //Have BMO's face fade when numbers are on the screen
     //Styling
 
 //Some of these id's are named after the corresponding keyboard button that activates the buttons
@@ -12,6 +14,7 @@ const equalsButton = document.querySelector('#Enter');
 const equationDisplay = document.querySelector('#equationdisplay');
 const posnegButton = document.querySelector('#Control');
 const deleteButton = document.querySelector('#Backspace');
+const displayContainer = document.getElementById('displaycontainer').style.backgroundColor;
 
 equationDisplay.textContent = '';
 let lastOperandSymbol = '';
@@ -173,6 +176,7 @@ deleteButton.addEventListener('click',() => {
 
 //Clear all function
 function clearAll(){
+    displayContainer.back
     equationDisplay.textContent = '';
     display.textContent = '';
     firstNum = '';
