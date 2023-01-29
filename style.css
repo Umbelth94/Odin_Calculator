@@ -2,7 +2,14 @@
     box-sizing:border-box;
 }
 
+h1,h3 {
+    text-align:center;
+}
+
+
 #calculator-frame{
+    margin-left:auto;
+    margin-right:auto;
     background-color:rgb(99, 189, 164);
     width:350px;
     border:solid 1px black;
