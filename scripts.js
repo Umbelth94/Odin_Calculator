@@ -3,7 +3,7 @@
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
     //Add button to turn off or change BMO's face.
     //Have BMO's face fade (or change) when numbers are on the screen
-    //New background (image, perhaps), 
+    //New background for page(image, perhaps), 
 //KNOWN BUGS
     //BMO's face appears when entering a new number after an equation
 
@@ -34,7 +34,11 @@ let isPositive = true; //A check that is mostly used for the positive/negative b
 window.addEventListener('keydown',(event) =>{
     let keyPressed = event.key;
     console.log(keyPressed);
-    document.getElementById(keyPressed).click();
+    if (event.key == 'Delete'){
+        document.getElementById('Clear').click();
+    } else {
+        document.getElementById(keyPressed).click();
+    }
    });
 
 //combine all number button listeners into one eventListener function
