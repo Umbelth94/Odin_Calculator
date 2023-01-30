@@ -1,9 +1,11 @@
 //TO DO LIST
+    //Clean up code for BMO face switches so they take up less room
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
-    //Add button to turn off or change BMO's face.
-    //Have BMO's face fade (or change) when numbers are on the screen
+    //Add button to turn off or change BMO's face.  (Maybe)
+        //Add face for divide by zero 
     //New background for page(image, perhaps), 
 //KNOWN BUGS
+    //Fix bmo's face disappearing when entering number after equation
 
 //Some of these id's are named after the corresponding keyboard button that activates the buttons
 const display = document.querySelector('#display');
@@ -19,7 +21,7 @@ const allButtons = document.querySelectorAll('button');
 
 equationDisplay.textContent = '';
 let lastOperandSymbol = '';
-let operandOn = false; //A toggle tomake sure there is a second input after hitting an operand
+let operandOn = false; //A toggle to make sure there is a second input after hitting an operand
 let operatorPressed = '';
 let firstNum =''; 
 let secondNum='';
@@ -28,6 +30,16 @@ let isFirst = true;
 let result = 0;
 let postDisplay = false; //Checks if the number on the display is the result of an equation.
 let isPositive = true; //A check that is mostly used for the positive/negative button
+
+
+
+function faceSwitch(bmoFace,opacity){
+    document.getElementById('displaycontainer').style.background = `linear-gradient(rgba(128, 229, 209, ${opacity}),rgba(128, 229, 209, ${opacity})),url(./${bmoFace}.jpeg)`
+    document.getElementById('displaycontainer').style.backgroundSize = '300px';
+}
+
+
+
 
 
 //Event listener for all buttons so that they can revert back to unpressed m
@@ -53,10 +65,11 @@ window.addEventListener('keydown',(event) =>{
 //combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
-        document.getElementById('displaycontainer').style.background = 'rgb(128,229,209)';
+        //Add Opacity to BMO's face
+        faceSwitch('bmo7','0.7');
         if(postDisplay){
             clearAll();
-            document.getElementById('displaycontainer').style.background = 'rgb(128,229,209)';
+            faceSwitch('bmo7','0.7');
             postDisplay = false;
         }
         if(!operandOn){
@@ -83,7 +96,8 @@ operandButtons.forEach(button => {
         if (firstNum == '' && isFirst){
             return;
         }
-        if (isFirst){ //If the first number has not been entered
+        if (isFirst){
+            faceSwitch('bmo7','0.7')
             firstNum = +firstNum; //converts first numberstring to number
             display.textContent = ''; //blanks out display
             isFirst = false; //Sets the next number input to the second number
@@ -103,6 +117,7 @@ operandButtons.forEach(button => {
         } else if (!isFirst){ //If the second number has been entered
             console.log(button.id);
             lastOperandSymbol = button.textContent;
+            faceSwitch('bmo1','0.7');
             if (button.id == '+'){
                 solveWithOperator('add');
             } else if (button.id =='-'){
@@ -166,6 +181,7 @@ equalsButton.addEventListener('click', () => {
         return;
     }
     if(secondNum != ''){
+        faceSwitch('bmo1','0.7');
         result = operate(operatorPressed,+firstNum,+secondNum);
         console.log(result);
         firstNum = result; //Set the result to the first number so that the next input is always the secondNum variable
@@ -177,6 +193,7 @@ equalsButton.addEventListener('click', () => {
         postDisplay = true;
         isPositive = true;
     } else if(secondNum == ''){
+        faceSwitch('bmo1','0.7');
         equationDisplay.textContent = firstNum + lastOperandSymbol + storedSecondNum + '= '; 
         result = operate(operatorPressed,+firstNum,storedSecondNum);//Calls the stored second number
         firstNum = result;
@@ -199,9 +216,7 @@ deleteButton.addEventListener('click',() => {
 
 //Clear all function
 function clearAll(){
-    document.getElementById('displaycontainer').style.background = 'url(./bmo9.jpeg)'
-    document.getElementById('displaycontainer').style.backgroundSize = '300px';
-    displayContainer.back
+    faceSwitch('bmo9','0');
     equationDisplay.textContent = '';
     display.textContent = '';
     firstNum = '';
