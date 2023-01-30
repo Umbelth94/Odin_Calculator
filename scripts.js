@@ -1,5 +1,4 @@
 //TO DO LIST
-    //ADD HOVER/CLICK FUNCTIONALITY TO BUTTONS (priority)
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
     //Add button to turn off or change BMO's face.
     //Have BMO's face fade (or change) when numbers are on the screen
@@ -18,6 +17,7 @@ const equationDisplay = document.querySelector('#equationdisplay');
 const posnegButton = document.querySelector('#Control');
 const deleteButton = document.querySelector('#Backspace');
 const displayContainer = document.getElementById('displaycontainer').style.backgroundColor;
+const allButtons = document.querySelectorAll('button'); 
 
 equationDisplay.textContent = '';
 let lastOperandSymbol = '';
@@ -31,6 +31,15 @@ let result = 0;
 let postDisplay = false; //Checks if the number on the display is the result of an equation.
 let isPositive = true; //A check that is mostly used for the positive/negative button
 
+
+//Event listener for all buttons so that they can revert back to unpressed m
+allButtons.forEach(button => button.addEventListener('transitionend',removeTransition))
+
+function removeTransition(e){
+    if(e.propertyName !== 'transform') return;
+    this.classList.remove('pressed');
+}
+
 //event listener for number buttons
 window.addEventListener('keydown',(event) =>{
     let keyPressed = event.key;
@@ -38,6 +47,7 @@ window.addEventListener('keydown',(event) =>{
     if (event.key == 'Delete'){
         document.getElementById('Clear').click();
     } else {
+        document.getElementById(keyPressed).classList.add('pressed');
         document.getElementById(keyPressed).click();
     }
    });
