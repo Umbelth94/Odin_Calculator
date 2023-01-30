@@ -4,8 +4,6 @@
     //Have BMO's face fade (or change) when numbers are on the screen
     //New background for page(image, perhaps), 
 //KNOWN BUGS
-    //BMO's face appears when entering a new number after an equation
-    //Make operand buttons only work if numbers have been input
 
 //Some of these id's are named after the corresponding keyboard button that activates the buttons
 const display = document.querySelector('#display');
@@ -21,7 +19,7 @@ const allButtons = document.querySelectorAll('button');
 
 equationDisplay.textContent = '';
 let lastOperandSymbol = '';
-let operandOn = false; //A toggle to make sure there is a second input after hitting an operand
+let operandOn = false; //A toggle tomake sure there is a second input after hitting an operand
 let operatorPressed = '';
 let firstNum =''; 
 let secondNum='';
@@ -35,7 +33,7 @@ let isPositive = true; //A check that is mostly used for the positive/negative b
 //Event listener for all buttons so that they can revert back to unpressed m
 allButtons.forEach(button => button.addEventListener('transitionend',removeTransition))
 
-function removeTransition(e){
+function removeTransition(e,){
     if(e.propertyName !== 'transform') return;
     this.classList.remove('pressed');
 }
@@ -58,6 +56,7 @@ numButtons.forEach(button => {
         document.getElementById('displaycontainer').style.background = 'rgb(128,229,209)';
         if(postDisplay){
             clearAll();
+            document.getElementById('displaycontainer').style.background = 'rgb(128,229,209)';
             postDisplay = false;
         }
         if(!operandOn){
@@ -81,6 +80,9 @@ numButtons.forEach(button => {
 operandButtons.forEach(button => {
     button.addEventListener('click', () => {
         postDisplay = false;
+        if (firstNum == '' && isFirst){
+            return;
+        }
         if (isFirst){ //If the first number has not been entered
             firstNum = +firstNum; //converts first numberstring to number
             display.textContent = ''; //blanks out display
@@ -160,6 +162,9 @@ posnegButton.addEventListener('click',()=> {
 
 // = button
 equalsButton.addEventListener('click', () => {
+    if(firstNum == '' && isFirst){
+        return;
+    }
     if(secondNum != ''){
         result = operate(operatorPressed,+firstNum,+secondNum);
         console.log(result);

@@ -41,17 +41,16 @@ body{
 }
 #Backspace:active,
 #Clear:active{
-    background-color:rgb(93, 3, 33);
     transform: translateY(1px) translateX(1px);
 }
 
 .numbutt{
     background-color:rgb(98, 175, 183);
     box-shadow:2px 2px;
-    transition:all 0.05s;
+    transition:all 0.1s;
 }
+
 .numbutt:active{
-    background-color:rgb(67, 118, 123);
     transform: translateY(1px) translateX(1px);
 }
 
@@ -66,10 +65,10 @@ body{
     box-shadow:2px 2px;
     transition:all 0.05s;
 }
+
 .operand:active,
 #Enter:active,
 #Control:active{
-    background-color:rgb(224,179,11);
     transform: translateY(1px) translateX(1px);
 }
 
