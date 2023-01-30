@@ -34,7 +34,7 @@ let isPositive = true; //A check that is mostly used for the positive/negative b
 
 
 function faceSwitch(bmoFace,opacity){
-    document.getElementById('displaycontainer').style.background = `linear-gradient(rgba(128, 229, 209, ${opacity}),rgba(128, 229, 209, ${opacity})),url(./${bmoFace}.jpeg)`
+    document.getElementById('displaycontainer').style.background = `linear-gradient(rgba(128, 229, 209, ${opacity}),rgba(128, 229, 209, ${opacity})),url(./images/${bmoFace}.jpeg)`
     document.getElementById('displaycontainer').style.backgroundSize = '300px';
 }
 
@@ -66,10 +66,10 @@ window.addEventListener('keydown',(event) =>{
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
         //Add Opacity to BMO's face
-        faceSwitch('bmo7','0.7');
+        faceSwitch('bmoSurprised','0.7');
         if(postDisplay){
             clearAll();
-            faceSwitch('bmo7','0.7');
+            faceSwitch('bmoSurprised','0.7');
             postDisplay = false;
         }
         if(!operandOn){
@@ -97,7 +97,7 @@ operandButtons.forEach(button => {
             return;
         }
         if (isFirst){
-            faceSwitch('bmo7','0.7')
+            faceSwitch('bmoSurprised','0.7')
             firstNum = +firstNum; //converts first numberstring to number
             display.textContent = ''; //blanks out display
             isFirst = false; //Sets the next number input to the second number
@@ -117,7 +117,7 @@ operandButtons.forEach(button => {
         } else if (!isFirst){ //If the second number has been entered
             console.log(button.id);
             lastOperandSymbol = button.textContent;
-            faceSwitch('bmo1','0.7');
+            faceSwitch('bmoProud','0.7');
             if (button.id == '+'){
                 solveWithOperator('add');
             } else if (button.id =='-'){
@@ -181,7 +181,7 @@ equalsButton.addEventListener('click', () => {
         return;
     }
     if(secondNum != ''){
-        faceSwitch('bmo1','0.7');
+        faceSwitch('bmoProud','0.7');
         result = operate(operatorPressed,+firstNum,+secondNum);
         console.log(result);
         firstNum = result; //Set the result to the first number so that the next input is always the secondNum variable
@@ -193,7 +193,7 @@ equalsButton.addEventListener('click', () => {
         postDisplay = true;
         isPositive = true;
     } else if(secondNum == ''){
-        faceSwitch('bmo1','0.7');
+        faceSwitch('bmoProud','0.7');
         equationDisplay.textContent = firstNum + lastOperandSymbol + storedSecondNum + '= '; 
         result = operate(operatorPressed,+firstNum,storedSecondNum);//Calls the stored second number
         firstNum = result;
@@ -216,7 +216,7 @@ deleteButton.addEventListener('click',() => {
 
 //Clear all function
 function clearAll(){
-    faceSwitch('bmo9','0');
+    faceSwitch('bmoHappy','0');
     equationDisplay.textContent = '';
     display.textContent = '';
     firstNum = '';
