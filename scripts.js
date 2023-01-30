@@ -6,6 +6,7 @@
     //New background for page(image, perhaps), 
 //KNOWN BUGS
     //BMO's face appears when entering a new number after an equation
+    //Make operand buttons only work if numbers have been input
 
 //Some of these id's are named after the corresponding keyboard button that activates the buttons
 const display = document.querySelector('#display');
