@@ -93,7 +93,7 @@ numButtons.forEach(button => {
 operandButtons.forEach(button => {
     button.addEventListener('click', () => {
         postDisplay = false;
-        if (firstNum == '' && isFirst){
+        if ((firstNum == '' && isFirst) || (secondNum== '' && !isFirst)){
             return;
         }
         if (isFirst){
