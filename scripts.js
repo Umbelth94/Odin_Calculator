@@ -34,17 +34,27 @@ let postDisplay = false; //Checks if the number on the display is the result of 
 let isPositive = true; //A check that is mostly used for the positive/negative button
 
 let isDecimalUsed = false;
-decimalButton.addEventListener('click', (button) => {
-    checkForDecimal();
-    if (isDecimalUsed == true){
-        return;
-    }});
+// decimalButton.addEventListener('click', () => { //It has SOMETHING TO DO WITH THIS EVENT LISTENER
+//     console.log(decimalButton.textContent)
+//     console.log('decimalbutton pushed');
+//     checkForDecimal();
+//     if (isDecimalUsed){ 
+//         console.log('returning');
+//         return 
+//     } 
+//     // else {
+//     //     display.textContent += decimalButton.textContent
+//     // }
+// });
 
 
 function checkForDecimal(){
+    console.log('checkfordecimal used');
     if(firstNumString.includes('.') || secondNumString.includes('.')){
+       console.log(isDecimalUsed)
         isDecimalUsed = true;
     } else {
+        console.log(isDecimalUsed);
         isDecimalUsed = false;
     }
 };
@@ -83,12 +93,14 @@ window.addEventListener('keydown',(event) =>{
 //combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
+        console.log(button);
         //Add Opacity to BMO's face
         // if (checkForDecimal() == true){
         faceSwitch('bmoSurprised','0.7');
-        if (isDecimalUsed){ 
-            return }
-        else {
+        // checkForDecimal();
+        // if (isDecimalUsed = true && button.textContent == '.'){
+        //     return;
+        // }
         if(postDisplay){ //If the last equation was just solved
             clearAll();
             faceSwitch('bmoSurprised','0.7');
@@ -111,7 +123,7 @@ numButtons.forEach(button => {
                 secondNumString += button.textContent
                 console.log('second number ' + secondNum);
             }}
-        })});
+        )});
 
 //Combine all of the operating buttons except for = into one eventlistener 
 operandButtons.forEach(button => {
@@ -252,6 +264,7 @@ function clearAll(){
     operandOn = false;
     storedSecondNum = '';
     isPositive = true;
+    isDecimalUsed = false;
 }
 
 clearButton.addEventListener('click', () => {
