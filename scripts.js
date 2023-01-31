@@ -1,11 +1,11 @@
 //TO DO LIST
-    //Clean up code for BMO face switches so they take up less room
+    //Take a final look at code to see what I can rename/refactor and simplify.
+    //Run some tests utilizing negative number functionality to make sure it works properly
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
+    //Make sure only one . can be hit
     //Add button to turn off or change BMO's face.  (Maybe)
-        //Add face for divide by zero 
     //New background for page(image, perhaps), 
 //KNOWN BUGS
-    //Fix bmo's face disappearing when entering number after equation
 
 //Some of these id's are named after the corresponding keyboard button that activates the buttons
 const display = document.querySelector('#display');
@@ -16,7 +16,7 @@ const equalsButton = document.querySelector('#Enter');
 const equationDisplay = document.querySelector('#equationdisplay');
 const posnegButton = document.querySelector('#Control');
 const deleteButton = document.querySelector('#Backspace');
-const displayContainer = document.getElementById('displaycontainer').style.backgroundColor;
+const decimalButton = document.querySelector('.decimal');
 const allButtons = document.querySelectorAll('button'); 
 
 equationDisplay.textContent = '';
@@ -24,23 +24,41 @@ let lastOperandSymbol = '';
 let operandOn = false; //A toggle to make sure there is a second input after hitting an operand
 let operatorPressed = '';
 let firstNum =''; 
+let firstNumString ='';
 let secondNum='';
+let secondNumString = '';
 let storedSecondNum = '';
 let isFirst = true; 
 let result = 0;
 let postDisplay = false; //Checks if the number on the display is the result of an equation.
 let isPositive = true; //A check that is mostly used for the positive/negative button
 
+let isDecimalUsed = false;
+decimalButton.addEventListener('click', (button) => {
+    checkForDecimal();
+    if (isDecimalUsed == true){
+        return;
+    }});
+
+
+function checkForDecimal(){
+    if(firstNumString.includes('.') || secondNumString.includes('.')){
+        isDecimalUsed = true;
+    } else {
+        isDecimalUsed = false;
+    }
+};
+    //Loop through firstNum, checking for '.' char
+        //If there is a '.', isDecimalUsed = true.
+            //Make isDecimalUsed a toggle that disables the button until thre are no decimals in the number.
+        //If there is no '.', isDecimalUsed = false; Enables the '.' button.
+    //Loop through secondNum and do the same thing.
 
 
 function faceSwitch(bmoFace,opacity){
     document.getElementById('displaycontainer').style.background = `linear-gradient(rgba(128, 229, 209, ${opacity}),rgba(128, 229, 209, ${opacity})),url(./images/${bmoFace}.jpeg)`
     document.getElementById('displaycontainer').style.backgroundSize = '300px';
 }
-
-
-
-
 
 //Event listener for all buttons so that they can revert back to unpressed m
 allButtons.forEach(button => button.addEventListener('transitionend',removeTransition))
@@ -66,8 +84,12 @@ window.addEventListener('keydown',(event) =>{
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
         //Add Opacity to BMO's face
+        // if (checkForDecimal() == true){
         faceSwitch('bmoSurprised','0.7');
-        if(postDisplay){
+        if (isDecimalUsed){ 
+            return }
+        else {
+        if(postDisplay){ //If the last equation was just solved
             clearAll();
             faceSwitch('bmoSurprised','0.7');
             postDisplay = false;
@@ -82,11 +104,13 @@ numButtons.forEach(button => {
             }
         if(isFirst){
                 firstNum += button.textContent;
+                firstNumString += button.textContent
                 console.log('first number ' + firstNum);
             } else {
                 secondNum += button.textContent;
+                secondNumString += button.textContent
                 console.log('second number ' + secondNum);
-            }
+            }}
         })});
 
 //Combine all of the operating buttons except for = into one eventlistener 
@@ -220,7 +244,9 @@ function clearAll(){
     equationDisplay.textContent = '';
     display.textContent = '';
     firstNum = '';
+    firstNumString = '';
     secondNum ='';
+    secondNumString ='';
     isFirst = true;
     result = 0;
     operandOn = false;
@@ -246,9 +272,10 @@ function multiply(a,b){
 
 function divide(a,b){
     if (b == '0' || b == 0){
-        console.log('nice try');
+        clearAll();
+        faceSwitch('bmoMad','0');
         postDisplay = true;
-        return 'Nice try, wise guy';
+        return
     }
     console.log ('divide ' + a + '/' + b + '=' + a/b);
     return a / b;
