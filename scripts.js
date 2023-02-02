@@ -1,9 +1,11 @@
 //TO DO LIST
-    //Make sure only one . can be hit (PRIORITY)
+    //Clean up numButton listener (priority)
+        //Does the "display.textContent" functionality need to be tucked in it's own code or can it be moved to where the operations go?
+        //Try to make a function to contain the conditions for the decimal check
     //Take a final look at code to see what I can rename/refactor and simplify.
     //Run some tests utilizing negative number functionality to make sure it works properly
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
-    //Add button to turn off or change BMO's face.  (Maybe)
+
     //New background for page(image, perhaps), 
 //KNOWN BUGS
 
@@ -35,35 +37,11 @@ let isPositive = true; //A check that is mostly used for the positive/negative b
 
 let isFirstDecimalUsed = false;
 let isSecondDecimalUsed = false;
-// decimalButton.addEventListener('click', () => { //It has SOMETHING TO DO WITH THIS EVENT LISTENER
-//     console.log(decimalButton.textContent)
-//     console.log('decimalbutton pushed');
-//     checkForDecimal();
-//     if (isDecimalUsed){ 
-//         console.log('returning');
-//         return 
-//     } 
-//     // else {
-//     //     display.textContent += decimalButton.textContent
-//     // }
-// });
 
 
 function checkForDecimal(){
-    console.log('checkfordecimal used');
-    if(firstNumString.includes('.') || secondNumString.includes('.')){
-       console.log(isDecimalUsed)
-        isDecimalUsed = true;
-    } else {
-        console.log(isDecimalUsed);
-        isDecimalUsed = false;
-    }
+    //Create a function here to cut down on the clutter in the numButtons function
 };
-    //Loop through firstNum, checking for '.' char
-        //If there is a '.', isDecimalUsed = true.
-            //Make isDecimalUsed a toggle that disables the button until thre are no decimals in the number.
-        //If there is no '.', isDecimalUsed = false; Enables the '.' button.
-    //Loop through secondNum and do the same thing.
 
 
 function faceSwitch(bmoFace,opacity){
@@ -95,27 +73,22 @@ window.addEventListener('keydown',(event) =>{
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
         console.log(button);
-        //Add Opacity to BMO's face
-        // if (checkForDecimal() == true){
         faceSwitch('bmoSurprised','0.7');
-        // checkForDecimal();
-        // if (isDecimalUsed = true && button.textContent == '.'){
-        //     return;
-        // }
-        if(postDisplay){ //If the last equation was just solved
+        if(postDisplay){ //If the last equation was just solved and you hit a new number
             clearAll();
             faceSwitch('bmoSurprised','0.7');
             postDisplay = false;
         }
-        if(!operandOn){
+        if(!operandOn){ //Clean up these operand buttons.  Maybe move "display.textcontent" to a different part of the function? 
             if ((button.textContent == '.' && isFirstDecimalUsed == true && isFirst) ||
                 (button.textContent == '.' && isSecondDecimalUsed == true && !isFirst)){
                     console.log('should not be entering a decimal')
                     return;}
             else {
                 display.textContent += button.textContent;
-            }}
-            else if(operandOn){
+            }
+        }
+        else if(operandOn){
                 if ((button.textContent == '.' && isFirstDecimalUsed == true) ||
                     (button.textContent == '.' && isSecondDecimalused == true)){
                         console.log('should not be entering a decimal')
@@ -210,10 +183,10 @@ operandButtons.forEach(button => {
 
 //function that solves the equation upon pressing another operand instead of the equals button.
 function solveWithOperator(op){
-    isSecondDecimalUsed = false;
     firstNum = operate(operatorPressed, +firstNum, +secondNum); //calculates using the PREVIOUSLY PRESSED operator
     // lastOperandSymbol = this.textContent;
     operatorPressed = op; //updates the next operator to be used
+    isSecondDecimalUsed = false;
     secondNum ='';
     display.textContent = '';
     equationDisplay.textContent = firstNum + lastOperandSymbol;
