@@ -210,6 +210,7 @@ operandButtons.forEach(button => {
 
 //function that solves the equation upon pressing another operand instead of the equals button.
 function solveWithOperator(op){
+    isSecondDecimalUsed = false;
     firstNum = operate(operatorPressed, +firstNum, +secondNum); //calculates using the PREVIOUSLY PRESSED operator
     // lastOperandSymbol = this.textContent;
     operatorPressed = op; //updates the next operator to be used
@@ -259,6 +260,8 @@ equalsButton.addEventListener('click', () => {
         return;
     }
     if(secondNum != ''){
+        isFirstDecimalUsed = false;
+        isSecondDecimalUsed = false;
         faceSwitch('bmoProud','0.7');
         result = operate(operatorPressed,+firstNum,+secondNum);
         console.log(result);
@@ -308,7 +311,7 @@ function clearAll(){
     isPositive = true;
     isFirstDecimalUsed = false;
     isSecondDecimalUsed = false;
-    
+
 }
 
 clearButton.addEventListener('click', () => {
