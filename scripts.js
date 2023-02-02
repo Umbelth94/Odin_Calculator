@@ -1,8 +1,8 @@
 //TO DO LIST
+    //Make sure only one . can be hit (PRIORITY)
     //Take a final look at code to see what I can rename/refactor and simplify.
     //Run some tests utilizing negative number functionality to make sure it works properly
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
-    //Make sure only one . can be hit
     //Add button to turn off or change BMO's face.  (Maybe)
     //New background for page(image, perhaps), 
 //KNOWN BUGS
@@ -33,7 +33,8 @@ let result = 0;
 let postDisplay = false; //Checks if the number on the display is the result of an equation.
 let isPositive = true; //A check that is mostly used for the positive/negative button
 
-let isDecimalUsed = false;
+let isFirstDecimalUsed = false;
+let isSecondDecimalUsed = false;
 // decimalButton.addEventListener('click', () => { //It has SOMETHING TO DO WITH THIS EVENT LISTENER
 //     console.log(decimalButton.textContent)
 //     console.log('decimalbutton pushed');
@@ -107,23 +108,64 @@ numButtons.forEach(button => {
             postDisplay = false;
         }
         if(!operandOn){
-            display.textContent += button.textContent;
-        }
-        else if(operandOn){
-            display.textContent = '';
-            operandOn = false;
-            display.textContent += button.textContent;
-            }
-        if(isFirst){
-                firstNum += button.textContent;
-                firstNumString += button.textContent
-                console.log('first number ' + firstNum);
-            } else {
-                secondNum += button.textContent;
-                secondNumString += button.textContent
-                console.log('second number ' + secondNum);
+            if ((button.textContent == '.' && isFirstDecimalUsed == true && isFirst) ||
+                (button.textContent == '.' && isSecondDecimalUsed == true && !isFirst)){
+                    console.log('should not be entering a decimal')
+                    return;}
+            else {
+                display.textContent += button.textContent;
             }}
-        )});
+            else if(operandOn){
+                if ((button.textContent == '.' && isFirstDecimalUsed == true) ||
+                    (button.textContent == '.' && isSecondDecimalused == true)){
+                        console.log('should not be entering a decimal')
+                        return;
+                } else {
+                    display.textContent = '';
+                    operandOn = false;
+                    display.textContent += button.textContent;
+                }}
+        if (button.textContent =='.'){
+            console.log('. button pushed');
+            if(isFirst && firstNum.includes('.')){
+                console.log('first should be returning');
+                isFirstDecimalUsed = true;
+                return;
+            } else{
+                if(isFirst){
+                    isFirstDecimalUsed = true;
+                    console.log('entering first number instead');
+                    firstNum += button.textContent;
+                    firstNumString += button.textContent;
+                    console.log('first number ' + firstNum);
+                } else if(!isFirst){
+                    isSecondDecimalUsed = true;
+                    console.log('entering second number instead');
+                    secondNum += button.textContent;
+                    secondNumString += button.textContent;
+                    console.log('second number ' + secondNum);
+
+                }
+            }
+            if(!isFirst &&secondNum.includes('.')){
+                console.log('should be returning');
+                isFirstDecimalUsed = true;
+                return;} 
+        }
+        else {
+            if(isFirst){
+                    firstNum += button.textContent;
+                    firstNumString += button.textContent
+                    console.log('first number ' + firstNum);
+            } else {
+                    secondNum += button.textContent;
+                    secondNumString += button.textContent
+                    console.log('second number ' + secondNum);
+                }
+
+        }
+                })});
+       
 
 //Combine all of the operating buttons except for = into one eventlistener 
 operandButtons.forEach(button => {
@@ -264,7 +306,9 @@ function clearAll(){
     operandOn = false;
     storedSecondNum = '';
     isPositive = true;
-    isDecimalUsed = false;
+    isFirstDecimalUsed = false;
+    isSecondDecimalUsed = false;
+    
 }
 
 clearButton.addEventListener('click', () => {
