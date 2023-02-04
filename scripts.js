@@ -317,15 +317,15 @@ function divide(a,b){
 function operate(operator, a, b){ 
     if (operator == 'add'){
         console.log('add' + a + '+' + b);
-        return add(a,b);
+        return Math.round((add(a,b)) * 1000) / 1000;
     } else if (operator == 'subtract'){
         console.log('subtract' + a + b);
-        return subtract(a,b);
+        return Math.round((subtract(a,b)) * 1000) / 1000;
     } else if (operator =='multiply'){
         console.log('multiply' + a + b);
-        return multiply(a,b);
+        return Math.round((multiply(a,b)) * 1000) / 1000;
     } else if (operator =='divide'){
         console.log('divide' + a + b);
-        return divide(a,b);
+        return Math.round((divide(a,b)) * 1000) / 1000;
     }
 };
