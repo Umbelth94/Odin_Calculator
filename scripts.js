@@ -5,6 +5,9 @@
     //Take a final look at code to see what I can rename/refactor and simplify.
     //Run some tests utilizing negative number functionality to make sure it works properly
     //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
+        //Perhaps number input could scroll "off-screen"
+        //Likely just prevent input after certain size, and display a message.
+        //Use scientific notation if the answer were to exeed the character limit to prevent expansion
 
     //New background for page(image, perhaps), 
 //KNOWN BUGS

@@ -6,7 +6,7 @@ h1,h3 {
     text-align:center;
 }
 body{
-    background-color:rgb(35, 126, 12);
+    background-color:rgb(120, 167, 108);
 }
 
 #calculator-frame{
@@ -22,6 +22,7 @@ body{
 #displaycontainer{
     font-family:'IBM Plex Mono',monospace;
     background:url(./images/bmoHappy.jpeg);
+    background-repeat:no-repeat;
     border-radius:15px;
     background-size:300px;
     text-align:right;
