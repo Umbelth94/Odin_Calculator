@@ -59,13 +59,11 @@ function numberInputShrink(){
 
 function numberInputGrow(){
     let displayWidth = document.getElementById('display').offsetWidth;
-    console.log('font size is '+ document.getElementById('display').style.fontSize )
     if (displayWidth <= 260){
         console.log('display width' + displayWidth);
         let sizeString = document.getElementById('display').style.fontSize;
         let size = sizeString.replace('px','');
         size = Number(size);
-        console.log('size should be ' + size)
         if (size < 50){
             console.log('should be growing');
             size += 5;
