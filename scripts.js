@@ -4,9 +4,8 @@
         //Try to make a function to contain the conditions for the decimal check
     //Take a final look at code to see what I can rename/refactor and simplify.
     //Run some tests utilizing negative number functionality to make sure it works properly
-    //ADD FLOATING NUMBERS RESTRICTION SO THEY DON'T OVERFLOW
-        //Perhaps number input could scroll "off-screen"
-        //Likely just prevent input after certain size, and display a message.
+    //ADD NUMBER RESTRICTIONS SO THEY DON'T OVERFLOW
+        //Have numbers re-grow to fit the screen (until their fontsize is 50px again) when backspacing/deleting numbers
         //Use scientific notation if the answer were to exeed the character limit to prevent expansion
 
     //New background for page(image, perhaps), 
@@ -61,6 +60,25 @@ function numberInputShrink(){
             } else {
                 return
     }}};
+
+function numberInputGrow(){
+    let displayWidth = document.getElementById('display').offsetWidth;
+    console.log('font size is '+ document.getElementById('display').style.fontSize )
+    if (displayWidth <= 260){
+        console.log('display width' + displayWidth);
+        let sizeString = document.getElementById('display').style.fontSize;
+        let size = sizeString.replace('px','');
+        size = Number(size);
+        console.log('size should be ' + size)
+        if (size < 50){
+            console.log('should be growing');
+            size += 5;
+            document.getElementById('display').style.fontSize = `${size}px`;
+        }
+    } else {
+        return;
+    }
+}
 
 function numberInputSizeReset(){
     document.getElementById('display').style.fontSize = '50px';
@@ -295,6 +313,7 @@ equalsButton.addEventListener('click', () => {
 
 //Delete button
 deleteButton.addEventListener('click',() => {
+    numberInputGrow();
     if(isFirst){
         firstNum = firstNum.slice(0,firstNum.length -1);
         display.textContent = firstNum;
