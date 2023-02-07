@@ -42,13 +42,16 @@ let isPositive = true; //A check that is mostly used for the positive/negative b
 let isFirstDecimalUsed = false;
 let isSecondDecimalUsed = false;
 
+
 function numberInputShrink(){
+    let displayWidth = document.getElementById('display').offsetWidth;
+    console.log('display width = ' + displayWidth);
     //Check if the length of inputNum is over a specific number, and have the input shrink down to a specific size at certain lengths.  (Or scale dynamically)
     console.log('display length' + display.textContent.length)
     console.log(document.getElementById('display').style.fontSize);
     if(display.textContent.length < 8){
         return;
-    } else if ((display.textContent.length >= 9)){
+    } else if (displayWidth >= 270){
             let sizeString = document.getElementById('display').style.fontSize;
             let size = sizeString.replace('px','');
             size = Number(size);
@@ -59,7 +62,9 @@ function numberInputShrink(){
                 return
     }}};
 
-
+function numberInputSizeReset(){
+    document.getElementById('display').style.fontSize = '50px';
+}
 
 
 function checkForDecimal(){
@@ -96,6 +101,11 @@ window.addEventListener('keydown',(event) =>{
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
         numberInputShrink();
+        let displayWidth = document.getElementById('display').offsetWidth;
+        if (displayWidth >= 278){ //If display tries going off screen, stop inputs
+            alert('That numbers too big dude');
+            return;
+        } else {
         console.log(button);
         faceSwitch('bmoSurprised','0.7');
         if(postDisplay){ //If the last equation was just solved and you hit a new number
@@ -161,12 +171,13 @@ numButtons.forEach(button => {
                 }
 
         }
-                })});
+                }})});
        
 
 //Combine all of the operating buttons except for = into one eventlistener 
 operandButtons.forEach(button => {
     button.addEventListener('click', () => {
+        numberInputSizeReset();
         postDisplay = false;
         if ((firstNum == '' && isFirst) || (secondNum== '' && !isFirst)){
             return;
@@ -253,6 +264,7 @@ posnegButton.addEventListener('click',()=> {
 
 // = button
 equalsButton.addEventListener('click', () => {
+    numberInputSizeReset();
     if(firstNum == '' && isFirst){
         return;
     }
@@ -294,6 +306,7 @@ deleteButton.addEventListener('click',() => {
 
 //Clear all function
 function clearAll(){
+    numberInputSizeReset();
     faceSwitch('bmoHappy','0');
     equationDisplay.textContent = '';
     display.textContent = '';

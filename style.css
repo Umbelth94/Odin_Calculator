@@ -23,13 +23,14 @@ body{
     display:flex;
     flex-direction:column;
     justify-content:space-between;
+    align-items:flex-end;
     font-family:'IBM Plex Mono',monospace;
     background:url(./images/bmoHappy.jpeg);
     background-repeat:no-repeat;
     border-radius:15px;
     background-size:300px;
     text-align:right;
-    overflow-wrap:break-word;
+    /* overflow-wrap:break-word; */
     border:solid 1px black;
     margin-left:auto;
     margin-right:auto;
@@ -85,8 +86,8 @@ body{
 }
 #display{
     margin-top:10px;
-    margin-left:10px;
-    margin-right:10px;
+    margin-left:05px;
+    margin-right:05px;
     /* font-size:50px; */
 }
 
