@@ -5,8 +5,10 @@
     //Take a final look at code to see what I can rename/refactor and simplify.
     //Run some tests utilizing negative number functionality to make sure it works properly
     //ADD NUMBER RESTRICTIONS SO THEY DON'T OVERFLOW
-        //Have numbers re-grow to fit the screen (until their fontsize is 50px again) when backspacing/deleting numbers
         //Use scientific notation if the answer were to exeed the character limit to prevent expansion
+        //Feel free to shrink answers if they are too long (using the new functions)
+        //Figure out what to do with the equation 
+            //Perhaps get each number to be it's own seperate line?  
 
     //New background for page(image, perhaps), 
 //KNOWN BUGS
