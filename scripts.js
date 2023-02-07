@@ -46,13 +46,7 @@ let isSecondDecimalUsed = false;
 
 function numberInputShrink(){
     let displayWidth = document.getElementById('display').offsetWidth;
-    console.log('display width = ' + displayWidth);
-    //Check if the length of inputNum is over a specific number, and have the input shrink down to a specific size at certain lengths.  (Or scale dynamically)
-    console.log('display length' + display.textContent.length)
-    console.log(document.getElementById('display').style.fontSize);
-    if(display.textContent.length < 8){
-        return;
-    } else if (displayWidth >= 270){
+    if (displayWidth >= 270){
             let sizeString = document.getElementById('display').style.fontSize;
             let size = sizeString.replace('px','');
             size = Number(size);
