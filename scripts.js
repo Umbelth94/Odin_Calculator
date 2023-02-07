@@ -38,8 +38,28 @@ let result = 0;
 let postDisplay = false; //Checks if the number on the display is the result of an equation.
 let isPositive = true; //A check that is mostly used for the positive/negative button
 
+
 let isFirstDecimalUsed = false;
 let isSecondDecimalUsed = false;
+
+function numberInputShrink(){
+    //Check if the length of inputNum is over a specific number, and have the input shrink down to a specific size at certain lengths.  (Or scale dynamically)
+    console.log('display length' + display.textContent.length)
+    console.log(document.getElementById('display').style.fontSize);
+    if(display.textContent.length < 8){
+        return;
+    } else if ((display.textContent.length >= 9)){
+            let sizeString = document.getElementById('display').style.fontSize;
+            let size = sizeString.replace('px','');
+            size = Number(size);
+            if(size > 20){
+                size -= 5;
+                document.getElementById('display').style.fontSize = `${size}px`
+            } else {
+                return
+    }}};
+
+
 
 
 function checkForDecimal(){
@@ -75,6 +95,7 @@ window.addEventListener('keydown',(event) =>{
 //combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
+        numberInputShrink();
         console.log(button);
         faceSwitch('bmoSurprised','0.7');
         if(postDisplay){ //If the last equation was just solved and you hit a new number
@@ -88,7 +109,7 @@ numButtons.forEach(button => {
                     console.log('should not be entering a decimal')
                     return;}
             else {
-                display.textContent += button.textContent;
+                display.textContent += button.textContent; //Display the number pressed
             }
         }
         else if(operandOn){
