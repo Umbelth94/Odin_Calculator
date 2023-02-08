@@ -43,7 +43,8 @@ let isPositive = true; //A check that is mostly used for the positive/negative b
 let isFirstDecimalUsed = false;
 let isSecondDecimalUsed = false;
 
-
+// let displayWidth = document.getElementById('display').offsetWidth;
+// let sizeString = document.getElementById('display').style.fontSize;
 function numberInputShrink(){
     let displayWidth = document.getElementById('display').offsetWidth;
     if (displayWidth >= 270){
@@ -74,9 +75,29 @@ function numberInputGrow(){
     }
 }
 
+function getResultSize(){
+    let resultWidth = document.getElementById('display').offsetWidth;
+    console.log('getResultSize > resultWidth = ' + resultWidth);
+    let totalDisplayWidth = document.getElementById('displaycontainer').offsetWidth;
+    console.log('getREsultSize > totalDisplayWidth = ' + totalDisplayWidth);
+    if (resultWidth > totalDisplayWidth){
+        let inputSizeString = document.getElementById('display').style.fontSize;
+        let inputSize = inputSizeString.replace('px','');
+        console.log(inputSize);
+        inputSize = Number(inputSize);
+        console.log(inputSize);
+        while(resultWidth > 280){
+            inputSize -= 5;
+            document.getElementById('display').style.fontSize = `${inputSize}px`;
+            resultWidth = document.getElementById('display').offsetWidth;
+        }
+    }
+}
+
 function numberInputSizeReset(){
     document.getElementById('display').style.fontSize = '50px';
-}
+    console.log('input size reset');
+};
 
 
 function checkForDecimal(){
@@ -100,7 +121,6 @@ function removeTransition(e,){
 //event listener for number buttons
 window.addEventListener('keydown',(event) =>{
     let keyPressed = event.key;
-    console.log(keyPressed);
     if (event.key == 'Delete'){
         document.getElementById('Clear').click();
     } else {
@@ -118,7 +138,6 @@ numButtons.forEach(button => {
             alert('That numbers too big dude');
             return;
         } else {
-        console.log(button);
         faceSwitch('bmoSurprised','0.7');
         if(postDisplay){ //If the last equation was just solved and you hit a new number
             clearAll();
@@ -280,6 +299,12 @@ equalsButton.addEventListener('click', () => {
     if(firstNum == '' && isFirst){
         return;
     }
+    if(Number(secondNum) == 0 && operatorPressed == 'divide'){ //If divide by zero
+        console.log('didthething');
+        clearAll();
+        faceSwitch('bmoMad','0');
+        return;
+    }
     if(secondNum != ''){
         isFirstDecimalUsed = false;
         isSecondDecimalUsed = false;
@@ -291,6 +316,7 @@ equalsButton.addEventListener('click', () => {
         equationDisplay.textContent += secondNum + '= ';
         secondNum = ''; //"reset" second number variable.  
         display.textContent = result;   
+        getResultSize();
         isFirst = true;
         postDisplay = true;
         isPositive = true;
@@ -355,8 +381,8 @@ function multiply(a,b){
 
 function divide(a,b){
     if (b == '0' || b == 0){
-        clearAll();
         faceSwitch('bmoMad','0');
+        // clearAll();
         postDisplay = true;
         return
     }
