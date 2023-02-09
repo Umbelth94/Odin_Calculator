@@ -181,7 +181,6 @@ numButtons.forEach(button => {
                     secondNum += button.textContent;
                     secondNumString += button.textContent;
                     console.log('second number ' + secondNum);
-
                 }
             }
             if(!isFirst &&secondNum.includes('.')){
@@ -269,7 +268,7 @@ function displayNumber(number){
 // +/- button
 posnegButton.addEventListener('click',()=> {
     //May need a function to check if the strings have an '-' already
-    if ((isFirst && firstNum != '') || (!isFirst && secondNum != '')) //Checks if a number is entered (either first OR second)
+    if ((isFirst && firstNum != '') || (!isFirst && secondNum != '' && !postDisplay)) //Checks if a number is entered (either first OR second)
     { if (isPositive){
         if(isFirst){
             firstNum = '-' + firstNum;
@@ -298,10 +297,10 @@ posnegButton.addEventListener('click',()=> {
 // = button
 equalsButton.addEventListener('click', () => {
     numberInputSizeReset();
-    if(firstNum == '' && isFirst){
+    if((firstNum == '' && isFirst)|| (firstNum != '' && isFirst && storedSecondNum == '') || (!isFirst && secondNum == '')){
         return;
     }
-    if(Number(secondNum) == 0 && operatorPressed == 'divide'){ //If divide by zero
+    if(Number(secondNum) == 0 && operatorPressed == 'divide' && secondNum != ''){ //If divide by zero
         console.log('didthething');
         clearAll();
         faceSwitch('bmoMad','0');
@@ -388,7 +387,7 @@ function multiply(a,b){
 function divide(a,b){
     // if (b == '0' || b == 0){
     //     faceSwitch('bmoMad','0');
-    //     // clearAll();
+    //     clearAll();
     //     postDisplay = true;
     //     return
     // }
