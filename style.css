@@ -6,7 +6,7 @@ h1,h3 {
     text-align:center;
 }
 body{
-    background-color:rgb(120, 167, 108);
+    background-color:rgb(216, 68, 78);
 }
 
 #calculator-frame{
@@ -123,6 +123,16 @@ button{
     column-gap:05px;
     row-gap:010px;
     margin:15px;
+}
+
+#footercontainer{
+    border:2px solid black;
+    display:flex;
+    justify-content:space-between;
+    padding-left:20px;
+    padding-right:20px;
+    margin-left:15px;
+    margin-right:15px;
 }
 
 

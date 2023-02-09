@@ -5,6 +5,7 @@
     //Take a final look at code to see what I can rename/refactor and simplify.
     //Run some tests utilizing negative number functionality to make sure it works properly
     //New background for page(image, perhaps), 
+    //Stylize page + watermark + Github Link
 //KNOWN BUGS
     
 
@@ -336,15 +337,19 @@ equalsButton.addEventListener('click', () => {
 
 //Delete button
 deleteButton.addEventListener('click',() => {
-    numberInputGrow();
-    if(isFirst){
-        firstNum = firstNum.slice(0,firstNum.length -1);
-        display.textContent = firstNum;
+    if (postDisplay){
+        clearAll();
+        return;
     } else {
-        secondNum = secondNum.slice(0,secondNum.length -1);
-        display.textContent = secondNum;
-    }
-})
+        numberInputGrow();
+        if(isFirst){
+            firstNum = firstNum.slice(0,firstNum.length -1);
+            display.textContent = firstNum;
+        } else {
+            secondNum = secondNum.slice(0,secondNum.length -1);
+            display.textContent = secondNum;
+    }}
+});
 
 //Clear all function
 function clearAll(){
