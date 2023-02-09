@@ -117,7 +117,7 @@ function removeTransition(e,){
     this.classList.remove('pressed');
 }
 
-//event listener for number buttons
+
 window.addEventListener('keydown',(event) =>{
     let keyPressed = event.key;
     if (event.key == 'Delete'){
@@ -221,7 +221,7 @@ operandButtons.forEach(button => {
             console.log(button.id);
             lastOperandSymbol = button.textContent;//stores the most recent operand symbol for use in the display
             equationDisplayOne.textContent = firstNum;
-            equationDisplayTwo.textContent = lastOperandSymbol + ' ';
+            equationDisplayTwo.textContent = lastOperandSymbol;
             if (button.id == '+'){
                 operatorPressed = 'add';
             } else if (button.id =='-'){
@@ -314,7 +314,7 @@ equalsButton.addEventListener('click', () => {
         result = operate(operatorPressed,+firstNum,+secondNum);
         console.log(result);
         // equationDisplayOne.textContent += firstNum + lastOperandSymbol;
-        equationDisplayTwo.textContent += secondNum + '=';
+        equationDisplayTwo.textContent = lastOperandSymbol + secondNum + ' =';
         firstNum = result; //Set the result to the first number so that the next input is always the secondNum variable
         storedSecondNum = +secondNum; //Stores a number to be used as the second value, should one not be entered
         secondNum = ''; //"reset" second number variable.  
@@ -326,7 +326,7 @@ equalsButton.addEventListener('click', () => {
     } else if(secondNum == ''){
         faceSwitch('bmoProud','0.7');
         equationDisplayOne.textContent = firstNum;
-        equationDisplayTwo.textContent = lastOperandSymbol + ' '+ storedSecondNum + '= ';
+        equationDisplayTwo.textContent = lastOperandSymbol + storedSecondNum + ' = ';
         result = operate(operatorPressed,+firstNum,storedSecondNum);//Calls the stored second number
         firstNum = result;
         display.textContent = result;
@@ -386,12 +386,13 @@ function multiply(a,b){
 }
 
 function divide(a,b){
-    if (b == '0' || b == 0){
-        faceSwitch('bmoMad','0');
-        // clearAll();
-        postDisplay = true;
-        return
-    }
+    // if (b == '0' || b == 0){
+    //     faceSwitch('bmoMad','0');
+    //     // clearAll();
+    //     postDisplay = true;
+    //     return
+    // }
+    //^^Try to implement this code instead of using the divide by zero code earlier in the script
     console.log ('divide ' + a + '/' + b + '=' + a/b);
     return a / b;
 }
