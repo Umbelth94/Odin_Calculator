@@ -4,11 +4,11 @@
         //Try to make a function to contain the conditions for the decimal check
     //Take a final look at code to see what I can rename/refactor and simplify.
     //Run some tests utilizing negative number functionality to make sure it works properly
-    //ADD NUMBER RESTRICTIONS SO THEY DON'T OVERFLOW
-        //Fine tune the equations line, figure out what goes where.
+    
 
     //New background for page(image, perhaps), 
 //KNOWN BUGS
+    //Fix the operand displaying incorrectly when stringing different operations together
 
 //Some of these id's are named after the corresponding keyboard button that activates the buttons
 const display = document.querySelector('#display');
@@ -79,7 +79,7 @@ function getResultSize(){
     console.log('getResultSize > resultWidth = ' + resultWidth);
     let totalDisplayWidth = document.getElementById('displaycontainer').offsetWidth;
     console.log('getREsultSize > totalDisplayWidth = ' + totalDisplayWidth);
-    if (resultWidth > totalDisplayWidth){
+    if (resultWidth > 280){
         let inputSizeString = document.getElementById('display').style.fontSize;
         let inputSize = inputSizeString.replace('px','');
         console.log(inputSize);
@@ -221,7 +221,7 @@ operandButtons.forEach(button => {
             console.log(button.id);
             lastOperandSymbol = button.textContent;//stores the most recent operand symbol for use in the display
             equationDisplayOne.textContent = firstNum;
-            equationDisplayTwo.textContent = lastOperandSymbol;
+            equationDisplayTwo.textContent = lastOperandSymbol + ' ';
             if (button.id == '+'){
                 operatorPressed = 'add';
             } else if (button.id =='-'){
@@ -256,7 +256,7 @@ function solveWithOperator(op){
     secondNum ='';
     display.textContent = '';
     equationDisplayOne.textContent = firstNum;
-    equationDisplayTwo.textContent = operatorPressed;
+    equationDisplayTwo.textContent = lastOperandSymbol;
 
     operandOn = true;
     isPositive = true;
@@ -313,9 +313,10 @@ equalsButton.addEventListener('click', () => {
         faceSwitch('bmoProud','0.7');
         result = operate(operatorPressed,+firstNum,+secondNum);
         console.log(result);
+        // equationDisplayOne.textContent += firstNum + lastOperandSymbol;
+        equationDisplayTwo.textContent += secondNum + '=';
         firstNum = result; //Set the result to the first number so that the next input is always the secondNum variable
         storedSecondNum = +secondNum; //Stores a number to be used as the second value, should one not be entered
-        equationDisplayOne.textContent += secondNum + '= ';
         secondNum = ''; //"reset" second number variable.  
         display.textContent = result;   
         getResultSize();
@@ -329,6 +330,7 @@ equalsButton.addEventListener('click', () => {
         result = operate(operatorPressed,+firstNum,storedSecondNum);//Calls the stored second number
         firstNum = result;
         display.textContent = result;
+        getResultSize();
         postDisplay = true;
         isPositive = true;
     }
