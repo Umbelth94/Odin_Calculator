@@ -5,10 +5,7 @@
     //Take a final look at code to see what I can rename/refactor and simplify.
     //Run some tests utilizing negative number functionality to make sure it works properly
     //ADD NUMBER RESTRICTIONS SO THEY DON'T OVERFLOW
-        //Use scientific notation if the answer were to exeed the character limit to prevent expansion
-        //Feel free to shrink answers if they are too long (using the new functions)
-        //Figure out what to do with the equation 
-            //Perhaps get each number to be it's own seperate line?  
+        //Fine tune the equations line, figure out what goes where.
 
     //New background for page(image, perhaps), 
 //KNOWN BUGS
@@ -19,13 +16,15 @@ const numButtons = document.querySelectorAll('.numbutt');
 const clearButton = document.querySelector('#Clear');
 const operandButtons = document.querySelectorAll('.operand');
 const equalsButton = document.querySelector('#Enter');
-const equationDisplay = document.querySelector('#equationdisplay');
+const equationDisplayOne = document.querySelector('#equationdisplayone');
+const equationDisplayTwo = document.querySelector('#equationdisplaytwo')
 const posnegButton = document.querySelector('#Control');
 const deleteButton = document.querySelector('#Backspace');
 const decimalButton = document.querySelector('.decimal');
 const allButtons = document.querySelectorAll('button'); 
 
-equationDisplay.textContent = '';
+equationDisplayOne.textContent = '';
+equationDisplayTwo.textContent = '';
 let lastOperandSymbol = '';
 let operandOn = false; //A toggle to make sure there is a second input after hitting an operand
 let operatorPressed = '';
@@ -221,7 +220,8 @@ operandButtons.forEach(button => {
             isPositive = true;
             console.log(button.id);
             lastOperandSymbol = button.textContent;//stores the most recent operand symbol for use in the display
-            equationDisplay.textContent = firstNum + lastOperandSymbol;
+            equationDisplayOne.textContent = firstNum;
+            equationDisplayTwo.textContent = lastOperandSymbol;
             if (button.id == '+'){
                 operatorPressed = 'add';
             } else if (button.id =='-'){
@@ -255,7 +255,9 @@ function solveWithOperator(op){
     isSecondDecimalUsed = false;
     secondNum ='';
     display.textContent = '';
-    equationDisplay.textContent = firstNum + lastOperandSymbol;
+    equationDisplayOne.textContent = firstNum;
+    equationDisplayTwo.textContent = operatorPressed;
+
     operandOn = true;
     isPositive = true;
 }
@@ -313,7 +315,7 @@ equalsButton.addEventListener('click', () => {
         console.log(result);
         firstNum = result; //Set the result to the first number so that the next input is always the secondNum variable
         storedSecondNum = +secondNum; //Stores a number to be used as the second value, should one not be entered
-        equationDisplay.textContent += secondNum + '= ';
+        equationDisplayOne.textContent += secondNum + '= ';
         secondNum = ''; //"reset" second number variable.  
         display.textContent = result;   
         getResultSize();
@@ -322,7 +324,8 @@ equalsButton.addEventListener('click', () => {
         isPositive = true;
     } else if(secondNum == ''){
         faceSwitch('bmoProud','0.7');
-        equationDisplay.textContent = firstNum + lastOperandSymbol + storedSecondNum + '= '; 
+        equationDisplayOne.textContent = firstNum;
+        equationDisplayTwo.textContent = lastOperandSymbol + ' '+ storedSecondNum + '= ';
         result = operate(operatorPressed,+firstNum,storedSecondNum);//Calls the stored second number
         firstNum = result;
         display.textContent = result;
@@ -347,7 +350,8 @@ deleteButton.addEventListener('click',() => {
 function clearAll(){
     numberInputSizeReset();
     faceSwitch('bmoHappy','0');
-    equationDisplay.textContent = '';
+    equationDisplayOne.textContent = '';
+    equationDisplayTwo.textContent = '';
     display.textContent = '';
     firstNum = '';
     firstNumString = '';
