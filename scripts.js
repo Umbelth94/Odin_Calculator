@@ -4,11 +4,9 @@
         //Try to make a function to contain the conditions for the decimal check
     //Take a final look at code to see what I can rename/refactor and simplify.
     //Run some tests utilizing negative number functionality to make sure it works properly
-    
-
     //New background for page(image, perhaps), 
 //KNOWN BUGS
-    //Fix the operand displaying incorrectly when stringing different operations together
+    
 
 //Some of these id's are named after the corresponding keyboard button that activates the buttons
 const display = document.querySelector('#display');
@@ -46,12 +44,13 @@ let isSecondDecimalUsed = false;
 // let sizeString = document.getElementById('display').style.fontSize;
 function numberInputShrink(){
     let displayWidth = document.getElementById('display').offsetWidth;
-    if (displayWidth >= 270){
+    console.log('display width = ' + displayWidth);
+    if (displayWidth >= 268){
             let sizeString = document.getElementById('display').style.fontSize;
             let size = sizeString.replace('px','');
             size = Number(size);
             if(size > 20){
-                size -= 5;
+                size -= 4;
                 document.getElementById('display').style.fontSize = `${size}px`
             } else {
                 return
@@ -59,7 +58,7 @@ function numberInputShrink(){
 
 function numberInputGrow(){
     let displayWidth = document.getElementById('display').offsetWidth;
-    if (displayWidth <= 260){
+    if (displayWidth <= 268){
         console.log('display width' + displayWidth);
         let sizeString = document.getElementById('display').style.fontSize;
         let size = sizeString.replace('px','');
@@ -79,13 +78,13 @@ function getResultSize(){
     console.log('getResultSize > resultWidth = ' + resultWidth);
     let totalDisplayWidth = document.getElementById('displaycontainer').offsetWidth;
     console.log('getREsultSize > totalDisplayWidth = ' + totalDisplayWidth);
-    if (resultWidth > 280){
+    if (resultWidth > 290){
         let inputSizeString = document.getElementById('display').style.fontSize;
         let inputSize = inputSizeString.replace('px','');
         console.log(inputSize);
         inputSize = Number(inputSize);
         console.log(inputSize);
-        while(resultWidth > 280){
+        while(resultWidth > 278){
             inputSize -= 5;
             document.getElementById('display').style.fontSize = `${inputSize}px`;
             resultWidth = document.getElementById('display').offsetWidth;
