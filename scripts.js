@@ -28,9 +28,9 @@ let lastOperandSymbol = '';
 let operandOn = false; //A toggle to make sure there is a second input after hitting an operand
 let operatorPressed = '';
 let firstNum =''; 
-let firstNumString ='';
+// let firstNumString ='';
 let secondNum='';
-let secondNumString = '';
+// let secondNumString = '';
 let storedSecondNum = '';
 let isFirst = true; 
 let result = 0;
@@ -99,9 +99,9 @@ function numberInputSizeReset(){
 };
 
 
-function checkForDecimal(){
-    //Create a function here to cut down on the clutter in the numButtons function
-};
+// function checkForDecimal(){
+//     //Create a function here to cut down on the clutter in the numButtons function
+// };
 
 
 function faceSwitch(bmoFace,opacity){
@@ -109,15 +109,15 @@ function faceSwitch(bmoFace,opacity){
     document.getElementById('displaycontainer').style.backgroundSize = '300px';
 }
 
-//Event listener for all buttons so that they can revert back to unpressed m
+//Event listener for all buttons so that they can revert back to unpressed mode
 allButtons.forEach(button => button.addEventListener('transitionend',removeTransition))
 
-function removeTransition(e,){
-    if(e.propertyName !== 'transform') return;
-    this.classList.remove('pressed');
-}
+    function removeTransition(e,){
+        if(e.propertyName !== 'transform') return;
+        this.classList.remove('pressed');
+    }
 
-
+//Adds 'pressed' class to buttons for effects 
 window.addEventListener('keydown',(event) =>{
     let keyPressed = event.key;
     if (event.key == 'Delete'){
@@ -173,13 +173,13 @@ numButtons.forEach(button => {
                     isFirstDecimalUsed = true;
                     console.log('entering first number instead');
                     firstNum += button.textContent;
-                    firstNumString += button.textContent;
+                    // firstNumString += button.textContent;
                     console.log('first number ' + firstNum);
                 } else if(!isFirst){
                     isSecondDecimalUsed = true;
                     console.log('entering second number instead');
                     secondNum += button.textContent;
-                    secondNumString += button.textContent;
+                    // secondNumString += button.textContent;
                     console.log('second number ' + secondNum);
                 }
             }
@@ -191,11 +191,11 @@ numButtons.forEach(button => {
         else {
             if(isFirst){
                     firstNum += button.textContent;
-                    firstNumString += button.textContent
+                    // firstNumString += button.textContent
                     console.log('first number ' + firstNum);
             } else {
                     secondNum += button.textContent;
-                    secondNumString += button.textContent
+                    // secondNumString += button.textContent
                     console.log('second number ' + secondNum);
                 }
 
@@ -213,10 +213,10 @@ operandButtons.forEach(button => {
         }
         if (isFirst){
             faceSwitch('bmoSurprised','0.7')
-            firstNum = +firstNum; //converts first numberstring to number
+            firstNum = +firstNum; 
             display.textContent = ''; //blanks out display
             isFirst = false; //Sets the next number input to the second number
-            isPositive = true;
+            isPositive = true; 
             console.log(button.id);
             lastOperandSymbol = button.textContent;//stores the most recent operand symbol for use in the display
             equationDisplayOne.textContent = firstNum;
@@ -359,9 +359,9 @@ function clearAll(){
     equationDisplayTwo.textContent = '';
     display.textContent = '';
     firstNum = '';
-    firstNumString = '';
+    // firstNumString = '';
     secondNum ='';
-    secondNumString ='';
+    // secondNumString ='';
     isFirst = true;
     result = 0;
     operandOn = false;
