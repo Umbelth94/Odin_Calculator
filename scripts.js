@@ -71,9 +71,6 @@ function numberInputSizeReset(){
 };
 
 
-// function checkForDecimal(){
-//     //Create a function here to cut down on the clutter in the numButtons function
-// };
 
 
 function faceSwitch(bmoFace,opacity){
@@ -90,15 +87,37 @@ window.addEventListener('keydown',(event) =>{
         document.getElementById(keyPressed).classList.add('pressed');
         document.getElementById(keyPressed).click();
     }
-   });
-   
+});
+
 //Event listener for all buttons so that they can revert back to unpressed mode
 allButtons.forEach(button => button.addEventListener('transitionend',removeTransition))
-    function removeTransition(e,){
-        if(e.propertyName !== 'transform') return;
-        this.classList.remove('pressed');
-    }
+function removeTransition(e,){
+    if(e.propertyName !== 'transform') return;
+    this.classList.remove('pressed');
+}
 
+function checkForDecimal(button){
+    if (button.textContent == '.'){
+        if(isFirst && firstNum.includes('.')){
+            isFirstDecimalUsed = true;
+        } else {
+            isFirstDecimalUsed = false;
+        }
+        if (!isFirst && secondNum.includes('.')){
+            isSecondDecimalUsed = true;
+        } else {
+            isSecondDecimalUsed = false;
+        }
+    }
+    if ((button.textContent == '.' && isFirstDecimalUsed && isFirst) ||
+        (button.textContent == '.' && isSecondDecimalUsed && !isFirst)){
+            console.log('should not be entering a decimal');
+            return true;
+        } else {
+            return false;
+        }
+    
+};
 
 //combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
@@ -111,67 +130,31 @@ numButtons.forEach(button => {
             return;
         } 
         else {
-        faceSwitch('bmoSurprised','0.7');
-        if(postDisplay){ //If the last equation was just solved and you hit a new number
-            clearAll();
-            faceSwitch('bmoSurprised','0.7');
-            postDisplay = false;
-        }
-        if(!operandOn){ //Clean up these operand buttons.  Maybe move "display.textcontent" to a different part of the function? 
-            if ((button.textContent == '.' && isFirstDecimalUsed && isFirst) ||
-                (button.textContent == '.' && isSecondDecimalUsed && !isFirst)){
-                    console.log('should not be entering a decimal')
-                    return;}
-            else {
-                display.textContent += button.textContent; //Display the number pressed
-            }
-        }
-        else if(operandOn){
-                if ((button.textContent == '.' && isFirstDecimalUsed == true) ||
-                    (button.textContent == '.' && isSecondDecimalused == true)){
-                        console.log('should not be entering a decimal')
-                        return;
-                } else {
+            if (checkForDecimal(button) == true) { //If there is a decimal already entered, do nothing
+                return;
+            } else {
+                faceSwitch('bmoSurprised','0.7');
+                if(postDisplay){ //If the last equation was just solved and you hit a new number
+                    clearAll();
+                    faceSwitch('bmoSurprised','0.7');
+                    postDisplay = false;
+                }
+                if(!operandOn){ //Clean up these operand buttons.  Maybe move "display.textcontent" to a different part of the function? 
+                    display.textContent += button.textContent; //Display the number pressed
+                }
+                if(operandOn){
                     display.textContent = '';
                     operandOn = false;
                     display.textContent += button.textContent;
-                }}
-        if (button.textContent =='.'){
-            console.log('. button pushed');
-            if(isFirst && firstNum.includes('.')){
-                console.log('first should be returning');
-                isFirstDecimalUsed = true;
-                return;
-            } else{
-                if(isFirst){
-                    isFirstDecimalUsed = true;
-                    console.log('entering first number instead');
-                    firstNum += button.textContent;
-                    console.log('first number ' + firstNum);
-                } else if(!isFirst){
-                    isSecondDecimalUsed = true;
-                    console.log('entering second number instead');
-                    secondNum += button.textContent;
-                    console.log('second number ' + secondNum);
                 }
-            }
-            if(!isFirst &&secondNum.includes('.')){
-                console.log('should be returning');
-                isFirstDecimalUsed = true;
-                return;} 
-        }
-        else {
-            if(isFirst){
-                    firstNum += button.textContent;
-                    console.log('first number ' + firstNum);
-            } else {
-                    secondNum += button.textContent;
-                    console.log('second number ' + secondNum);
-                }
-
-        }
-                }
-            })});
+                else {
+                    if(isFirst){
+                            firstNum += button.textContent;
+                            console.log('first number ' + firstNum);
+                    } else {
+                            secondNum += button.textContent;
+                            console.log('second number ' + secondNum);
+                        }}}}})});
        
 
 //Combine all of the operating buttons except for = into one eventlistener 
@@ -220,7 +203,6 @@ operandButtons.forEach(button => {
 //function that solves the equation upon pressing another operand instead of the equals button.
 function solveWithOperator(op){
     firstNum = operate(operatorPressed, +firstNum, +secondNum); //calculates using the PREVIOUSLY PRESSED operator
-
     operatorPressed = op; //updates the next operator to be used
     isSecondDecimalUsed = false;
     secondNum ='';
