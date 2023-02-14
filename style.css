@@ -122,13 +122,14 @@ button{
 }
 
 #footercontainer{
+    width:350px;
     background-color:rgb(4, 181, 151);
     border:2px solid black;
     border-radius:20px;
     display:flex;
     justify-content:space-between;
     padding:0 20px 0 20px;
-    margin:0 15px 0 15px;
+    margin:0 auto 0 auto;
 }
 
 a{
