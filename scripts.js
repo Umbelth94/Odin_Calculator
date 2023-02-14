@@ -24,7 +24,7 @@ const allButtons = document.querySelectorAll('button');
 equationDisplayOne.textContent = '';
 equationDisplayTwo.textContent = '';
 let lastOperandSymbol = '';
-let operandOn = false; //A toggle to make sure there is a second input after hitting an operand
+let operandOn = false; //A toggle to make sure there is a second input after hitting an operand to solve equations, instead of equals button
 let operatorPressed = '';
 let firstNum =''; 
 let secondNum='';
@@ -33,8 +33,6 @@ let isFirst = true;
 let result = 0;
 let postDisplay = false; //Checks if the number on the display is the result of an equation.
 let isPositive = true; //A check that is mostly used for the positive/negative button
-let isFirstDecimalUsed = false;
-let isSecondDecimalUsed = false;
 
 function numberInputGrow(){
     let displayWidth = document.getElementById('display').offsetWidth;
@@ -89,6 +87,8 @@ function removeTransition(e,){
 }
 
 function checkForDecimal(button){
+    let isFirstDecimalUsed = false;
+    let isSecondDecimalUsed = false;
     if (button.textContent == '.'){
         if(isFirst && firstNum.includes('.')){
             isFirstDecimalUsed = true;
@@ -161,13 +161,13 @@ operandButtons.forEach(button => {
         if ((firstNum == '' && isFirst) || (secondNum== '' && !isFirst)){
             return;
         }
+
         if (isFirst){
             faceSwitch('bmoSurprised','0.7')
             firstNum = +firstNum; 
             display.textContent = ''; //blanks out display
             isFirst = false; //Sets the next number input to the second number
             isPositive = true; 
-            console.log(button.id);
             lastOperandSymbol = button.textContent;//stores the most recent operand symbol for use in the display
             equationDisplayOne.textContent = firstNum;
             equationDisplayTwo.textContent = lastOperandSymbol;
@@ -180,8 +180,8 @@ operandButtons.forEach(button => {
             } else if (button.id == '/'){
                 operatorPressed = 'divide';
             }
+
         } else if (!isFirst){ //If the second number has been entered
-            console.log(button.id);
             lastOperandSymbol = button.textContent;
             faceSwitch('bmoProud','0.7');
             if (button.id == '+'){
@@ -214,6 +214,7 @@ posnegButton.addEventListener('click',()=> {
     setInputSize();
     //May need a function to check if the strings have an '-' already
     if ((isFirst && firstNum != '') || (!isFirst && secondNum != '' && !postDisplay)) //Checks if a number is entered (either first OR second)
+
     { if (isPositive){
         if(isFirst){
             firstNum = '-' + firstNum;
@@ -226,6 +227,7 @@ posnegButton.addEventListener('click',()=> {
             isPositive = false;
             //append a '-' in front of the display that is the second number
         }
+
     } else {
         if(isFirst){
             firstNum = firstNum.slice(1);
@@ -242,15 +244,21 @@ posnegButton.addEventListener('click',()=> {
 // = button
 equalsButton.addEventListener('click', () => {
     numberInputSizeReset();
+
+    //If certain inputs are blank, don't function
     if((firstNum == '' && isFirst)|| (firstNum != '' && isFirst && storedSecondNum == '') || (!isFirst && secondNum == '')){
         return;
     }
+
+    //If divide by zero
     if(Number(secondNum) == 0 && operatorPressed == 'divide' && secondNum != ''){ //If divide by zero
         console.log('didthething');
         clearAll();
         faceSwitch('bmoMad','0');
         return;
     }
+
+    //If there is a second number provided, operate regularle
     if(secondNum != ''){
         isFirstDecimalUsed = false;
         isSecondDecimalUsed = false;
@@ -267,6 +275,8 @@ equalsButton.addEventListener('click', () => {
         isFirst = true;
         postDisplay = true;
         isPositive = true;
+
+    //If the second number has not been provided, operate based on most recent input
     } else if(secondNum == ''){
         faceSwitch('bmoProud','0.7');
         equationDisplayOne.textContent = firstNum;
