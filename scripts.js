@@ -1,14 +1,11 @@
 //TO DO LIST
-    //Clean up numButton listener (priority)
-        //Does the "display.textContent" functionality need to be tucked in it's own code or can it be moved to where the operations go?
-    //Take a final look at code to see what I can rename/refactor and simplify.
-    //Run some tests utilizing negative number functionality to make sure it works properly
+    //Take a final look at code to see what I can rename/refactor and simplify. (Come back to this when I'm better at coding)
     //New background for page(image, perhaps), 
     //Stylize page + watermark + Github Link
-//KNOWN BUGS
+
     
 
-//Some of these id's are named after the corresponding keyboard button that activates the buttons
+//Some of these id's are named after their keyboard button id
 const display = document.querySelector('#display');
 const numButtons = document.querySelectorAll('.numbutt');
 const clearButton = document.querySelector('#Clear');
@@ -252,13 +249,12 @@ equalsButton.addEventListener('click', () => {
 
     //If divide by zero
     if(Number(secondNum) == 0 && operatorPressed == 'divide' && secondNum != ''){ //If divide by zero
-        console.log('didthething');
         clearAll();
         faceSwitch('bmoMad','0');
         return;
     }
 
-    //If there is a second number provided, operate regularle
+    //If there is a second number provided, operate regularly
     if(secondNum != ''){
         isFirstDecimalUsed = false;
         isSecondDecimalUsed = false;
@@ -348,16 +344,12 @@ function divide(a,b){
 
 function operate(operator, a, b){ 
     if (operator == 'add'){
-        console.log('add' + a + '+' + b);
         return Math.round((add(a,b)) * 10000) / 10000;
     } else if (operator == 'subtract'){
-        console.log('subtract' + a + b);
         return Math.round((subtract(a,b)) * 10000) / 10000;
     } else if (operator =='multiply'){
-        console.log('multiply' + a + b);
         return Math.round((multiply(a,b)) * 10000) / 10000;
     } else if (operator =='divide'){
-        console.log('divide' + a + b);
         return Math.round((divide(a,b)) * 10000) / 10000;
     }
 };
