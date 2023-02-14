@@ -6,7 +6,7 @@ h1,h3 {
     text-align:center;
 }
 body{
-    background-color:rgb(210, 183, 184);
+    background-color:rgb(167, 150, 177);
 }
 
 #calculator-frame{
@@ -122,11 +122,24 @@ button{
 }
 
 #footercontainer{
+    background-color:rgb(4, 181, 151);
     border:2px solid black;
+    border-radius:20px;
     display:flex;
     justify-content:space-between;
     padding:0 20px 0 20px;
     margin:0 15px 0 15px;
+}
+
+a{
+    text-decoration:none;
+    border:1px solid black;
+    border-radius:10px;
+    padding:5px;
+    background:rgb(8, 141, 230);
+}
+a:link{
+    color:black;
 }
 
 
