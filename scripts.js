@@ -1,7 +1,6 @@
 //TO DO LIST
     //Clean up numButton listener (priority)
         //Does the "display.textContent" functionality need to be tucked in it's own code or can it be moved to where the operations go?
-        //Try to make a function to contain the conditions for the decimal check
     //Take a final look at code to see what I can rename/refactor and simplify.
     //Run some tests utilizing negative number functionality to make sure it works properly
     //New background for page(image, perhaps), 
@@ -28,9 +27,7 @@ let lastOperandSymbol = '';
 let operandOn = false; //A toggle to make sure there is a second input after hitting an operand
 let operatorPressed = '';
 let firstNum =''; 
-// let firstNumString ='';
 let secondNum='';
-// let secondNumString = '';
 let storedSecondNum = '';
 let isFirst = true; 
 let result = 0;
@@ -38,8 +35,6 @@ let postDisplay = false; //Checks if the number on the display is the result of 
 let isPositive = true; //A check that is mostly used for the positive/negative button
 let isFirstDecimalUsed = false;
 let isSecondDecimalUsed = false;
-
-
 
 function numberInputGrow(){
     let displayWidth = document.getElementById('display').offsetWidth;
@@ -69,9 +64,6 @@ function numberInputSizeReset(){
     document.getElementById('display').style.fontSize = '50px';
     console.log('input size reset');
 };
-
-
-
 
 function faceSwitch(bmoFace,opacity){
     document.getElementById('displaycontainer').style.background = `linear-gradient(rgba(128, 229, 209, ${opacity}),rgba(128, 229, 209, ${opacity})),url(./images/${bmoFace}.jpeg)`
@@ -116,7 +108,6 @@ function checkForDecimal(button){
         } else {
             return false;
         }
-    
 };
 
 //combine all number button listeners into one eventListener function
@@ -125,37 +116,42 @@ numButtons.forEach(button => {
         setInputSize();
         // numberInputShrink();
         let displayWidth = document.getElementById('display').offsetWidth;
+
         if (displayWidth >= 278){ //If display tries going off screen, stop inputs
             alert('That numbers too big dude');
             return;
         } 
         else {
-            if (checkForDecimal(button) == true) { //If there is a decimal already entered, do nothing
+            if (checkForDecimal(button)) { //If there is a decimal already entered, return
                 return;
             } else {
                 faceSwitch('bmoSurprised','0.7');
-                if(postDisplay){ //If the last equation was just solved and you hit a new number
+
+                //If the last equation was just solved and you hit a new number, clear screen
+                if(postDisplay){ 
                     clearAll();
                     faceSwitch('bmoSurprised','0.7');
                     postDisplay = false;
                 }
-                if(!operandOn){ //Clean up these operand buttons.  Maybe move "display.textcontent" to a different part of the function? 
-                    display.textContent += button.textContent; //Display the number pressed
-                }
+
+                //Display the button content depending on if it is post operand or not
                 if(operandOn){
                     display.textContent = '';
                     operandOn = false;
                     display.textContent += button.textContent;
+                } else if(!operandOn){
+                    display.textContent += button.textContent; //Display the number pressed
                 }
-                else {
-                    if(isFirst){
-                            firstNum += button.textContent;
-                            console.log('first number ' + firstNum);
-                    } else {
-                            secondNum += button.textContent;
-                            console.log('second number ' + secondNum);
-                        }}}}})});
-       
+
+                //Assign the button content to firstNum or secondNum variables
+                if(isFirst){ 
+                    firstNum += button.textContent;
+                    console.log('first number ' + firstNum);
+                } else {
+                    secondNum += button.textContent;
+                    console.log('second number ' + secondNum);
+                }}}})});
+
 
 //Combine all of the operating buttons except for = into one eventlistener 
 operandButtons.forEach(button => {
@@ -209,14 +205,9 @@ function solveWithOperator(op){
     display.textContent = '';
     equationDisplayOne.textContent = firstNum;
     equationDisplayTwo.textContent = lastOperandSymbol;
-
-    operandOn = true;
+    operandOn = true; 
     isPositive = true;
 }
-
-function displayNumber(number){
-    display.textContent = number;
-};
 
 // +/- button
 posnegButton.addEventListener('click',()=> {
@@ -341,13 +332,6 @@ function multiply(a,b){
 }
 
 function divide(a,b){
-    // if (b == '0' || b == 0){
-    //     faceSwitch('bmoMad','0');
-    //     clearAll();
-    //     postDisplay = true;
-    //     return
-    // }
-    //^^Try to implement this code instead of using the divide by zero code earlier in the script
     console.log ('divide ' + a + '/' + b + '=' + a/b);
     return a / b;
 }
