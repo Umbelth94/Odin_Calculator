@@ -36,62 +36,34 @@ let isFirst = true;
 let result = 0;
 let postDisplay = false; //Checks if the number on the display is the result of an equation.
 let isPositive = true; //A check that is mostly used for the positive/negative button
-
-
 let isFirstDecimalUsed = false;
 let isSecondDecimalUsed = false;
 
-// let displayWidth = document.getElementById('display').offsetWidth;
-// let sizeString = document.getElementById('display').style.fontSize;
-function numberInputShrink(){
-    let displayWidth = document.getElementById('display').offsetWidth;
-    console.log('display width = ' + displayWidth);
-    if (displayWidth >= 268){
-            let sizeString = document.getElementById('display').style.fontSize;
-            let size = sizeString.replace('px','');
-            size = Number(size);
-            if(size > 20){
-                size -= 4;
-                document.getElementById('display').style.fontSize = `${size}px`
-            } else {
-                return
-    }}};
+
 
 function numberInputGrow(){
     let displayWidth = document.getElementById('display').offsetWidth;
-    if (displayWidth <= 268){
-        console.log('display width' + displayWidth);
+    if (displayWidth <= 250){
         let sizeString = document.getElementById('display').style.fontSize;
-        let size = sizeString.replace('px','');
-        size = Number(size);
+        let size = Number(sizeString.replace('px',''));
         if (size < 50){
-            console.log('should be growing');
             size += 5;
             document.getElementById('display').style.fontSize = `${size}px`;
         }
     } else {
         return;
-    }
-}
+    }};
 
-function getResultSize(){
+function setInputSize(){
     let resultWidth = document.getElementById('display').offsetWidth;
-    console.log('getResultSize > resultWidth = ' + resultWidth);
-    let totalDisplayWidth = document.getElementById('displaycontainer').offsetWidth;
-    console.log('getREsultSize > totalDisplayWidth = ' + totalDisplayWidth);
-    if (resultWidth > 290){
-        let inputSizeString = document.getElementById('display').style.fontSize;
-        let inputSize = inputSizeString.replace('px','');
-        console.log(inputSize);
-        inputSize = Number(inputSize);
-        console.log(inputSize);
-        while(resultWidth > 278){
-            inputSize -= 5;
+    let inputSizeString = document.getElementById('display').style.fontSize;
+    let inputSize = Number(inputSizeString.replace('px',''));
+    if (resultWidth > 265){
+        while(resultWidth > 265 && inputSize >=23){
+            inputSize -= 3;
             document.getElementById('display').style.fontSize = `${inputSize}px`;
             resultWidth = document.getElementById('display').offsetWidth;
-        }
-    }
-}
+        }}};
 
 function numberInputSizeReset(){
     document.getElementById('display').style.fontSize = '50px';
@@ -109,14 +81,6 @@ function faceSwitch(bmoFace,opacity){
     document.getElementById('displaycontainer').style.backgroundSize = '300px';
 }
 
-//Event listener for all buttons so that they can revert back to unpressed mode
-allButtons.forEach(button => button.addEventListener('transitionend',removeTransition))
-
-    function removeTransition(e,){
-        if(e.propertyName !== 'transform') return;
-        this.classList.remove('pressed');
-    }
-
 //Adds 'pressed' class to buttons for effects 
 window.addEventListener('keydown',(event) =>{
     let keyPressed = event.key;
@@ -127,16 +91,26 @@ window.addEventListener('keydown',(event) =>{
         document.getElementById(keyPressed).click();
     }
    });
+   
+//Event listener for all buttons so that they can revert back to unpressed mode
+allButtons.forEach(button => button.addEventListener('transitionend',removeTransition))
+    function removeTransition(e,){
+        if(e.propertyName !== 'transform') return;
+        this.classList.remove('pressed');
+    }
+
 
 //combine all number button listeners into one eventListener function
 numButtons.forEach(button => {
     button.addEventListener('click',() => {
-        numberInputShrink();
+        setInputSize();
+        // numberInputShrink();
         let displayWidth = document.getElementById('display').offsetWidth;
         if (displayWidth >= 278){ //If display tries going off screen, stop inputs
             alert('That numbers too big dude');
             return;
-        } else {
+        } 
+        else {
         faceSwitch('bmoSurprised','0.7');
         if(postDisplay){ //If the last equation was just solved and you hit a new number
             clearAll();
@@ -144,8 +118,8 @@ numButtons.forEach(button => {
             postDisplay = false;
         }
         if(!operandOn){ //Clean up these operand buttons.  Maybe move "display.textcontent" to a different part of the function? 
-            if ((button.textContent == '.' && isFirstDecimalUsed == true && isFirst) ||
-                (button.textContent == '.' && isSecondDecimalUsed == true && !isFirst)){
+            if ((button.textContent == '.' && isFirstDecimalUsed && isFirst) ||
+                (button.textContent == '.' && isSecondDecimalUsed && !isFirst)){
                     console.log('should not be entering a decimal')
                     return;}
             else {
@@ -173,13 +147,11 @@ numButtons.forEach(button => {
                     isFirstDecimalUsed = true;
                     console.log('entering first number instead');
                     firstNum += button.textContent;
-                    // firstNumString += button.textContent;
                     console.log('first number ' + firstNum);
                 } else if(!isFirst){
                     isSecondDecimalUsed = true;
                     console.log('entering second number instead');
                     secondNum += button.textContent;
-                    // secondNumString += button.textContent;
                     console.log('second number ' + secondNum);
                 }
             }
@@ -191,16 +163,15 @@ numButtons.forEach(button => {
         else {
             if(isFirst){
                     firstNum += button.textContent;
-                    // firstNumString += button.textContent
                     console.log('first number ' + firstNum);
             } else {
                     secondNum += button.textContent;
-                    // secondNumString += button.textContent
                     console.log('second number ' + secondNum);
                 }
 
         }
-                }})});
+                }
+            })});
        
 
 //Combine all of the operating buttons except for = into one eventlistener 
@@ -249,7 +220,7 @@ operandButtons.forEach(button => {
 //function that solves the equation upon pressing another operand instead of the equals button.
 function solveWithOperator(op){
     firstNum = operate(operatorPressed, +firstNum, +secondNum); //calculates using the PREVIOUSLY PRESSED operator
-    // lastOperandSymbol = this.textContent;
+
     operatorPressed = op; //updates the next operator to be used
     isSecondDecimalUsed = false;
     secondNum ='';
@@ -267,6 +238,7 @@ function displayNumber(number){
 
 // +/- button
 posnegButton.addEventListener('click',()=> {
+    setInputSize();
     //May need a function to check if the strings have an '-' already
     if ((isFirst && firstNum != '') || (!isFirst && secondNum != '' && !postDisplay)) //Checks if a number is entered (either first OR second)
     { if (isPositive){
@@ -318,7 +290,7 @@ equalsButton.addEventListener('click', () => {
         storedSecondNum = +secondNum; //Stores a number to be used as the second value, should one not be entered
         secondNum = ''; //"reset" second number variable.  
         display.textContent = result;   
-        getResultSize();
+        setInputSize();
         isFirst = true;
         postDisplay = true;
         isPositive = true;
@@ -329,7 +301,7 @@ equalsButton.addEventListener('click', () => {
         result = operate(operatorPressed,+firstNum,storedSecondNum);//Calls the stored second number
         firstNum = result;
         display.textContent = result;
-        getResultSize();
+        setInputSize();
         postDisplay = true;
         isPositive = true;
     }
@@ -359,9 +331,7 @@ function clearAll(){
     equationDisplayTwo.textContent = '';
     display.textContent = '';
     firstNum = '';
-    // firstNumString = '';
     secondNum ='';
-    // secondNumString ='';
     isFirst = true;
     result = 0;
     operandOn = false;
