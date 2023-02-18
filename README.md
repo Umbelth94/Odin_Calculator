@@ -22,3 +22,5 @@ In this assignment, I was asked to build a functioning calculator that can do ba
 * Tried my best to not overload the eventlisteners on the buttons and instead refactoring certain checks to seperate functions so that it at least LOOKS less chaotic.
 
 I hope you like it!  
+
+Live Link : https://umbelth94.github.io/Odin_Calculator/ 
