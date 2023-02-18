@@ -153,16 +153,61 @@ numButtons.forEach(button => {
                     console.log('second number ' + secondNum);
                 }}}})});
 
+function getOperator(button){
+    console.log('getting operator');
+    //Store/set the operator that was pressed
+    if (isFirst){
+        if (button.id == '+'){
+            operatorPressed = 'add';
+        } else if (button.id =='-'){
+            operatorPressed = 'subtract';
+        } else if (button.id == '*'){
+            operatorPressed = 'multiply';
+        } else if (button.id == '/'){
+            operatorPressed = 'divide';
+        }
+    //Solve with the operator that was most recently pressed
+    } else if(!isFirst){
+        if (button.id == '+'){
+            solveWithOperator('add');
+        } else if (button.id =='-'){
+            solveWithOperator('subtract');
+        } else if (button.id == '*'){
+            solveWithOperator('multiply');
+        } else if (button.id == '/'){
+            solveWithOperator('divide');
+        }
+    };}
 
 //Combine all of the operating buttons except for = into one eventlistener 
 operandButtons.forEach(button => {
     button.addEventListener('click', () => {
         numberInputSizeReset();
         postDisplay = false;
-        if ((firstNum == '' && isFirst) || (secondNum== '' && !isFirst)){
+        
+        //Disables the use of these buttons if there is no number input/displayed 
+        if (firstNum == '' && isFirst){
             return;
         }
 
+        //Allows user to change operator without the calculation running
+        if (secondNum == '' && !isFirst){
+            lastOperandSymbol = button.textContent;
+            equationDisplayTwo.textContent = lastOperandSymbol;
+            // getOperator(button);
+            if (button.id == '+'){
+                operatorPressed = 'add';
+            } else if (button.id =='-'){
+                operatorPressed = 'subtract';
+            } else if (button.id == '*'){
+                operatorPressed = 'multiply';
+            } else if (button.id == '/'){
+                operatorPressed = 'divide';
+            }
+            return;
+        }
+
+        //If the first number has been entered, store the number and operand pressed to a variable.  
         if (isFirst){
             faceSwitch('bmoSurprised','0.7')
             firstNum = +firstNum; 
@@ -173,6 +218,7 @@ operandButtons.forEach(button => {
             equationDisplayOne.textContent = firstNum;
             equationDisplayTwo.textContent = lastOperandSymbol;
             equalButtonDisabled = false;
+            // getOperator(button);
             if (button.id == '+'){
                 operatorPressed = 'add';
             } else if (button.id =='-'){
@@ -185,8 +231,9 @@ operandButtons.forEach(button => {
 
         } else if (!isFirst){ //If the second number has been entered
             lastOperandSymbol = button.textContent;
-            equalsButtonDisabled = false;
+            // equalButtonDisabled = false;
             faceSwitch('bmoProud','0.7');
+            // getOperator(button);
             if (button.id == '+'){
                 solveWithOperator('add');
             } else if (button.id =='-'){
@@ -250,7 +297,7 @@ equalsButton.addEventListener('click', () => {
     numberInputSizeReset();
 
     //If certain inputs are blank, don't function
-    if (equalButtonDisabled){
+    if ((equalButtonDisabled) || (!isFirst && secondNum == '')){
         return;
     } 
     else {
