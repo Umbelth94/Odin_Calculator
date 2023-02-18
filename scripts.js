@@ -2,6 +2,9 @@
     //Take a final look at code to see what I can rename/refactor and simplify. (Come back to this when I'm better at coding)
     //New background for page(image, perhaps), 
     //Stylize page + watermark + Github Link
+//BUGS
+    //Subtracting using repeated negative operations won't work past 0 (won't negative)
+    //You can't switch between using a second operand if you change your mind
 
     
 
@@ -30,6 +33,7 @@ let isFirst = true;
 let result = 0;
 let postDisplay = false; //Checks if the number on the display is the result of an equation.
 let isPositive = true; //A check that is mostly used for the positive/negative button
+let equalButtonDisabled = true;
 
 function numberInputGrow(){
     let displayWidth = document.getElementById('display').offsetWidth;
@@ -168,6 +172,7 @@ operandButtons.forEach(button => {
             lastOperandSymbol = button.textContent;//stores the most recent operand symbol for use in the display
             equationDisplayOne.textContent = firstNum;
             equationDisplayTwo.textContent = lastOperandSymbol;
+            equalButtonDisabled = false;
             if (button.id == '+'){
                 operatorPressed = 'add';
             } else if (button.id =='-'){
@@ -180,6 +185,7 @@ operandButtons.forEach(button => {
 
         } else if (!isFirst){ //If the second number has been entered
             lastOperandSymbol = button.textContent;
+            equalsButtonDisabled = false;
             faceSwitch('bmoProud','0.7');
             if (button.id == '+'){
                 solveWithOperator('add');
@@ -195,6 +201,7 @@ operandButtons.forEach(button => {
 
 //function that solves the equation upon pressing another operand instead of the equals button.
 function solveWithOperator(op){
+    console.log('solving with')
     firstNum = operate(operatorPressed, +firstNum, +secondNum); //calculates using the PREVIOUSLY PRESSED operator
     operatorPressed = op; //updates the next operator to be used
     isSecondDecimalUsed = false;
@@ -243,48 +250,48 @@ equalsButton.addEventListener('click', () => {
     numberInputSizeReset();
 
     //If certain inputs are blank, don't function
-    if((firstNum == '' && isFirst)|| (firstNum != '' && isFirst && storedSecondNum == '') || (!isFirst && secondNum == '')){
+    if (equalButtonDisabled){
         return;
-    }
+    } 
+    else {
+        //If divide by zero
+        if(Number(secondNum) == 0 && operatorPressed == 'divide' && secondNum != ''){ //If divide by zero
+            clearAll();
+            faceSwitch('bmoMad','0');
+            return;
+        }
 
-    //If divide by zero
-    if(Number(secondNum) == 0 && operatorPressed == 'divide' && secondNum != ''){ //If divide by zero
-        clearAll();
-        faceSwitch('bmoMad','0');
-        return;
-    }
+        //If there is a second number provided, operate regularly
+        if(secondNum != ''){
+            isFirstDecimalUsed = false;
+            isSecondDecimalUsed = false;
+            faceSwitch('bmoProud','0.7');
+            result = operate(operatorPressed,+firstNum,+secondNum);
+            console.log(result);
+            // equationDisplayOne.textContent += firstNum + lastOperandSymbol;
+            equationDisplayTwo.textContent = lastOperandSymbol + secondNum + ' =';
+            firstNum = result; //Set the result to the first number so that the next input is always the secondNum variable
+            storedSecondNum = +secondNum; //Stores a number to be used as the second value, should one not be entered
+            secondNum = ''; //"reset" second number variable.  
+            display.textContent = result;   
+            setInputSize();
+            isFirst = true;
+            postDisplay = true;
+            isPositive = true;
 
-    //If there is a second number provided, operate regularly
-    if(secondNum != ''){
-        isFirstDecimalUsed = false;
-        isSecondDecimalUsed = false;
-        faceSwitch('bmoProud','0.7');
-        result = operate(operatorPressed,+firstNum,+secondNum);
-        console.log(result);
-        // equationDisplayOne.textContent += firstNum + lastOperandSymbol;
-        equationDisplayTwo.textContent = lastOperandSymbol + secondNum + ' =';
-        firstNum = result; //Set the result to the first number so that the next input is always the secondNum variable
-        storedSecondNum = +secondNum; //Stores a number to be used as the second value, should one not be entered
-        secondNum = ''; //"reset" second number variable.  
-        display.textContent = result;   
-        setInputSize();
-        isFirst = true;
-        postDisplay = true;
-        isPositive = true;
-
-    //If the second number has not been provided, operate based on most recent input
-    } else if(secondNum == ''){
-        faceSwitch('bmoProud','0.7');
-        equationDisplayOne.textContent = firstNum;
-        equationDisplayTwo.textContent = lastOperandSymbol + storedSecondNum + ' = ';
-        result = operate(operatorPressed,+firstNum,storedSecondNum);//Calls the stored second number
-        firstNum = result;
-        display.textContent = result;
-        setInputSize();
-        postDisplay = true;
-        isPositive = true;
-    }
-});
+        //If the second number has not been provided, operate based on most recent input
+        } else if(secondNum == ''){
+            faceSwitch('bmoProud','0.7');
+            equationDisplayOne.textContent = firstNum;
+            equationDisplayTwo.textContent = lastOperandSymbol + storedSecondNum + ' = ';
+            result = operate(operatorPressed,+firstNum,storedSecondNum);//Calls the stored second number
+            firstNum = result;
+            display.textContent = result;
+            setInputSize();
+            postDisplay = true;
+            isPositive = true;
+        }
+        }});
 
 //Delete button
 deleteButton.addEventListener('click',() => {
@@ -318,6 +325,7 @@ function clearAll(){
     isPositive = true;
     isFirstDecimalUsed = false;
     isSecondDecimalUsed = false;
+    equalButtonDisabled = true;
 
 }
 
