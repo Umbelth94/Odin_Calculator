@@ -263,10 +263,16 @@ function solveWithOperator(op){
 // +/- button
 posnegButton.addEventListener('click',()=> {
     setInputSize();
+    if(display.textContent.includes('-')){
+        isPositive = false;
+    } else {
+        isPositive = true;
+    }
     //May need a function to check if the strings have an '-' already
     if ((isFirst && firstNum != '') || (!isFirst && secondNum != '' && !postDisplay)) //Checks if a number is entered (either first OR second)
 
-    { if (isPositive){
+    { 
+        if (isPositive){
         if(isFirst){
             firstNum = '-' + firstNum;
             display.textContent = firstNum;
@@ -281,10 +287,14 @@ posnegButton.addEventListener('click',()=> {
 
     } else {
         if(isFirst){
+            firstNum = firstNum.toString(); 
+            console.log('firstNum');
             firstNum = firstNum.slice(1);
             display.textContent = firstNum;
             isPositive = true;
         } else {
+            secondNum = secondNum.toString();
+            console.log('secondNum');
             secondNum = secondNum.slice(1);
             display.textContent = secondNum;
             isPositive = true;
