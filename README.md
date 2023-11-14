@@ -1,3 +1,5 @@
+Live Link : https://umbelth94.github.io/Odin_Calculator/ 
+
 # Odin_Calculator
 Calculator app based on the Odin Project curriculum 
 
@@ -23,4 +25,3 @@ In this assignment, I was asked to build a functioning calculator that can do ba
 
 I hope you like it!  
 
-Live Link : https://umbelth94.github.io/Odin_Calculator/ 
